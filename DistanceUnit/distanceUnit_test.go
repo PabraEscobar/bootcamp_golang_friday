@@ -1,7 +1,6 @@
 package distanceUnit
 
 import (
-	"reflect"
 	"testing"
 )
 
@@ -35,7 +34,7 @@ func TestEqualityforMetersAndkilometers(t *testing.T) {
 	d2, _ := NewDistanceUnit(1, "kilometer")
 
 	d2 = d2.KilometerToMeter()
-	if !reflect.DeepEqual(d1, d2) {
+	if EqualityForMeters(*d1, *d2) != true {
 		t.Errorf("want both distance equal")
 	}
 
