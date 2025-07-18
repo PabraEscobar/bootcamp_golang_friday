@@ -24,16 +24,16 @@ func NewDistanceUnit(distance int, unit Unit) (*distanceUnit, error) {
 }
 
 func (d1 *distanceUnit) EqualityOfDistance(d2 *distanceUnit) bool {
-	if (*d1).distance == d2.distance && (*d1).unit == d2.unit {
+	if d1.distance == d2.distance && d1.unit == d2.unit {
 		return true
 	} else if d1.unit == kilometers {
 		d1 = d1.KilometerToMeter()
-		if (*d1).distance == d2.distance && (*d1).unit == d2.unit {
+		if d1.distance == d2.distance && d1.unit == d2.unit {
 			return true
 		}
 	} else if d2.unit == kilometers {
 		d2 = d2.KilometerToMeter()
-		if (*d1).distance == d2.distance && (*d1).unit == d2.unit {
+		if d1.distance == d2.distance && d1.unit == d2.unit {
 			return true
 		}
 	}
