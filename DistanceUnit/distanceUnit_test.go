@@ -39,3 +39,13 @@ func TestEqualityforMetersAndkilometers(t *testing.T) {
 	}
 
 }
+
+func TestEqualitForKilometerAndMeter(t *testing.T) {
+	d1, _ := NewDistanceUnit(1, "kilometer")
+	d2, _ := NewDistanceUnit(1000, "meters")
+
+	d1 = d1.KilometerToMeter()
+	if EqualityForMeters(*d1, *d2) != true {
+		t.Errorf("want both distance equal")
+	}
+}
