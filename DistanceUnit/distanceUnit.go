@@ -14,6 +14,13 @@ func NewDistanceUnit(distance int, unit string) (*distanceUnit, error) {
 	return &distanceUnit{distance: distance, unit: unit}, nil
 }
 
+func EqualityForMeters(d1, d2 distanceUnit) bool {
+	if d1.distance == d2.distance && d1.unit == d2.unit {
+		return true
+	}
+	return false
+}
+
 func (d *distanceUnit) KilometerToMeter() *distanceUnit {
 	return &distanceUnit{distance: (d.distance * 1000), unit: "meters"}
 }
