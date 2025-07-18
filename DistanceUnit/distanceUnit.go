@@ -14,8 +14,8 @@ func NewDistanceUnit(distance int, unit string) (*distanceUnit, error) {
 	return &distanceUnit{distance: distance, unit: unit}, nil
 }
 
-func EqualityOfDistance(d1, d2 distanceUnit) bool {
-	if d1.distance == d2.distance && d1.unit == d2.unit {
+func (d1 *distanceUnit) EqualityOfDistance(d2 distanceUnit) bool {
+	if (*d1).distance == d2.distance && (*d1).unit == d2.unit {
 		return true
 	}
 	return false
