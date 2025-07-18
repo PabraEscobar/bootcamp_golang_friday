@@ -29,3 +29,14 @@ func TestEqualityforMeters(t *testing.T) {
 		t.Errorf("unequal distance")
 	}
 }
+
+func TestEqualityforMetersAndkilometers(t *testing.T) {
+	d1, _ := NewDistanceUnit(1000, "meters")
+	d2, _ := NewDistanceUnit(1, "kilometer")
+
+	d2 = d2.KilometerToMeter()
+	if !reflect.DeepEqual(d1, d2) {
+		t.Errorf("want both distance equal")
+	}
+
+}

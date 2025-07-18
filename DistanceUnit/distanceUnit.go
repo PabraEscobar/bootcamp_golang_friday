@@ -13,3 +13,7 @@ func NewDistanceUnit(distance int, unit string) (*distanceUnit, error) {
 	}
 	return &distanceUnit{distance: distance, unit: unit}, nil
 }
+
+func (d *distanceUnit) KilometerToMeter() *distanceUnit {
+	return &distanceUnit{distance: (d.distance * 1000), unit: "meters"}
+}
