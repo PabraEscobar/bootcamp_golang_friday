@@ -5,7 +5,7 @@ import (
 )
 
 func TestDistanceUnitCreation(t *testing.T) {
-	_, err := NewDistanceUnit(1, "km")
+	_, err := NewDistanceUnit(1, kilometers)
 	if err != nil {
 		t.Errorf("Distance unit Not created")
 	}
@@ -13,7 +13,7 @@ func TestDistanceUnitCreation(t *testing.T) {
 }
 
 func TestDistanceUnitNotCreatedWithNegativeDistance(t *testing.T) {
-	_, err := NewDistanceUnit(-1, "km")
+	_, err := NewDistanceUnit(-1, kilometers)
 	if err == nil {
 		t.Errorf("Distance unit should not be created with negative distance")
 	}
@@ -21,8 +21,8 @@ func TestDistanceUnitNotCreatedWithNegativeDistance(t *testing.T) {
 }
 
 func TestEqualityforMeters(t *testing.T) {
-	d1, _ := NewDistanceUnit(1000, "meters")
-	d2, _ := NewDistanceUnit(1000, "meters")
+	d1, _ := NewDistanceUnit(1000, meters)
+	d2, _ := NewDistanceUnit(1000, meters)
 
 	if d1.EqualityOfDistance(*d2) != true {
 		t.Errorf("unequal distance")
@@ -30,8 +30,8 @@ func TestEqualityforMeters(t *testing.T) {
 }
 
 func TestEqualityforMetersAndkilometers(t *testing.T) {
-	d1, _ := NewDistanceUnit(1000, "meters")
-	d2, _ := NewDistanceUnit(1, "kilometer")
+	d1, _ := NewDistanceUnit(1000, meters)
+	d2, _ := NewDistanceUnit(1, kilometers)
 
 	d2 = d2.KilometerToMeter()
 	if d1.EqualityOfDistance(*d2) != true {
@@ -41,8 +41,8 @@ func TestEqualityforMetersAndkilometers(t *testing.T) {
 }
 
 func TestEqualitForKilometerAndMeter(t *testing.T) {
-	d1, _ := NewDistanceUnit(1, "kilometer")
-	d2, _ := NewDistanceUnit(1000, "meters")
+	d1, _ := NewDistanceUnit(1, kilometers)
+	d2, _ := NewDistanceUnit(1000, meters)
 
 	d1 = d1.KilometerToMeter()
 	if d1.EqualityOfDistance(*d2) != true {
@@ -51,8 +51,8 @@ func TestEqualitForKilometerAndMeter(t *testing.T) {
 }
 
 func TestEqualityforKiloMeters(t *testing.T) {
-	d1, _ := NewDistanceUnit(1, "kilometers")
-	d2, _ := NewDistanceUnit(1, "kilometers")
+	d1, _ := NewDistanceUnit(1, kilometers)
+	d2, _ := NewDistanceUnit(1, kilometers)
 
 	if d1.EqualityOfDistance(*d2) != true {
 		t.Errorf("unequal distance")

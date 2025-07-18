@@ -2,12 +2,19 @@ package distanceUnit
 
 import "errors"
 
+type Unit int
+
+const (
+	meters     Unit = iota
+	kilometers Unit = iota
+)
+
 type distanceUnit struct {
 	distance int
-	unit     string
+	unit     Unit
 }
 
-func NewDistanceUnit(distance int, unit string) (*distanceUnit, error) {
+func NewDistanceUnit(distance int, unit Unit) (*distanceUnit, error) {
 	if distance < 0 {
 		return nil, errors.New("distance cannot be negative")
 	}
@@ -22,5 +29,5 @@ func (d1 *distanceUnit) EqualityOfDistance(d2 distanceUnit) bool {
 }
 
 func (d *distanceUnit) KilometerToMeter() *distanceUnit {
-	return &distanceUnit{distance: (d.distance * 1000), unit: "meters"}
+	return &distanceUnit{distance: (d.distance * 1000), unit: meters}
 }
