@@ -41,12 +41,14 @@ func (d1 *distanceUnit) equals(d2 *distanceUnit) bool {
 }
 
 func (d *distanceUnit) Inmeter() *distanceUnit {
-	switch d.unit {
-	case centimeters:
-		return &distanceUnit{distance: d.distance * 0.01, unit: meters}
-	case kilometers:
-		return &distanceUnit{distance: d.distance * 1000, unit: meters}
-	default:
-		return d
-	}
+	m := distanceMap()
+	return &distanceUnit{distance: d.distance * m[d.unit], unit: meters}
+}
+
+func distanceMap() map[Unit]float64 {
+	m := make(map[Unit]float64)
+	m[kilometers] = 1000
+	m[meters] = 1
+	m[centimeters] = 0.01
+	return m
 }
