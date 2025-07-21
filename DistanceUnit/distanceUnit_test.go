@@ -102,3 +102,13 @@ func TestEqualitForKilometerAndCentimeter(t *testing.T) {
 		t.Errorf("want both distance equal")
 	}
 }
+
+func TestTotalDistanceInMeters(t *testing.T) {
+	d1, _ := NewDistanceUnit(1000, meters)
+	d2, _ := NewDistanceUnit(1000, meters)
+	d3 := d1.TotalDistanceInMeters(d2)
+	if d3.distance != 2000 && d3.unit != meters {
+		t.Errorf("Wrong total")
+	}
+
+}

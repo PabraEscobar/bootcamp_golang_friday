@@ -13,11 +13,11 @@ const (
 )
 
 type distanceUnit struct {
-	distance int
+	distance float64
 	unit     Unit
 }
 
-func NewDistanceUnit(distance int, unit Unit) (*distanceUnit, error) {
+func NewDistanceUnit(distance float64, unit Unit) (*distanceUnit, error) {
 	if distance < 0 {
 		return nil, errors.New("distance cannot be negative")
 	}
@@ -25,49 +25,6 @@ func NewDistanceUnit(distance int, unit Unit) (*distanceUnit, error) {
 }
 
 func (d1 *distanceUnit) EqualityOfDistance(d2 *distanceUnit) bool {
-	// if d1.distance == d2.distance && d1.unit == d2.unit {
-	// 	return true
-	// } else if d1.unit == kilometers {
-	// 	d1 = d1.KilometerToMeter()
-	// 	if d2.unit == meters {
-	// 		if d1.distance == d2.distance && d1.unit == d2.unit {
-	// 			return true
-	// 		}
-	// 	} else if d2.unit == centimeters {
-	// 		d2 = d2.CentimeterToMeter()
-	// 		if d1.distance == d2.distance && d1.unit == d2.unit {
-	// 			return true
-	// 		}
-	// 	}
-
-	// } else if d2.unit == kilometers {
-	// 	d2 = d2.KilometerToMeter()
-	// 	if d1.unit == meters {
-	// 		if d1.distance == d2.distance && d1.unit == d2.unit {
-	// 			return true
-	// 		}
-	// 	} else if d1.unit == centimeters {
-	// 		d1 = d1.CentimeterToMeter()
-	// 		if d1.distance == d2.distance && d1.unit == d2.unit {
-	// 			return true
-	// 		}
-	// 	}
-	// } else if d1.unit == centimeters {
-	// 	d1 = d1.CentimeterToMeter()
-	// 	if d2.unit == meters {
-	// 		if d1.distance == d2.distance && d1.unit == d2.unit {
-	// 			return true
-	// 		}
-	// 	}
-	// } else if d1.unit == meters {
-	// 	if d2.unit == centimeters {
-	// 		d2 = d2.CentimeterToMeter()
-	// 		if d1.distance == d2.distance && d1.unit == d2.unit {
-	// 			return true
-	// 		}
-	// 	}
-	// }
-	// return false
 	return d1.Inmeter().distance == d2.Inmeter().distance
 }
 
@@ -80,10 +37,6 @@ func (d *distanceUnit) Inmeter() *distanceUnit {
 	return d
 }
 
-func (d *distanceUnit) KilometerToMeter() *distanceUnit {
-	return &distanceUnit{distance: (d.distance * 1000), unit: meters}
-}
-
-func (d *distanceUnit) CentimeterToMeter() *distanceUnit {
-	return &distanceUnit{distance: (d.distance / 100), unit: meters}
+func (d1 *distanceUnit) TotalDistanceInMeters(d2 *distanceUnit) *distanceUnit {
+	return &distanceUnit{distance: d1.Inmeter().distance + d2.Inmeter().distance, unit: meters}
 }
