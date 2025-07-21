@@ -37,10 +37,19 @@ func (d1 *distanceUnit) EqualityOfDistance(d2 *distanceUnit) bool {
 		if d1.distance == d2.distance && d1.unit == d2.unit {
 			return true
 		}
+	} else if d1.unit == centimeters {
+		d1 = d1.CentimeterToMeter()
+		if d1.distance == d2.distance && d1.unit == d2.unit {
+			return true
+		}
 	}
 	return false
 }
 
 func (d *distanceUnit) KilometerToMeter() *distanceUnit {
 	return &distanceUnit{distance: (d.distance * 1000), unit: meters}
+}
+
+func (d *distanceUnit) CentimeterToMeter() *distanceUnit {
+	return &distanceUnit{distance: (d.distance / 100), unit: meters}
 }
