@@ -1,4 +1,4 @@
-package distanceUnit
+package distance
 
 import (
 	"errors"
