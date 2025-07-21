@@ -112,3 +112,13 @@ func TestTotalDistanceInMeters(t *testing.T) {
 	}
 
 }
+
+func TestTotalDistanceInKilometers(t *testing.T) {
+	d1, _ := NewDistanceUnit(1000, kilometers)
+	d2, _ := NewDistanceUnit(1000, kilometers)
+	d3 := d1.TotalDistanceInKilometers(d2)
+	if d3.distance != 2000 && d3.unit != kilometers {
+		t.Errorf("Wrong total")
+	}
+
+}

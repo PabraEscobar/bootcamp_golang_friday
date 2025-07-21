@@ -40,3 +40,11 @@ func (d *distanceUnit) Inmeter() *distanceUnit {
 func (d1 *distanceUnit) TotalDistanceInMeters(d2 *distanceUnit) *distanceUnit {
 	return &distanceUnit{distance: d1.Inmeter().distance + d2.Inmeter().distance, unit: meters}
 }
+
+func (d1 *distanceUnit) TotalDistanceInKilometers(d2 *distanceUnit) *distanceUnit {
+	return &distanceUnit{distance: (d1.Inmeter().distance + d2.Inmeter().distance) / 1000, unit: kilometers}
+}
+
+// func (d1 *distanceUnit) TotalDistance( d2 *distanceUnit) *distanceUnit{
+// 	if d1.unit
+// }
