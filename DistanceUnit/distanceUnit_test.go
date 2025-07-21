@@ -94,3 +94,11 @@ func TestEqualitForCentimeterAndKilometer(t *testing.T) {
 		t.Errorf("want both distance equal")
 	}
 }
+
+func TestEqualitForKilometerAndCentimeter(t *testing.T) {
+	d2, _ := NewDistanceUnit(1000000, centimeters)
+	d1, _ := NewDistanceUnit(10, kilometers)
+	if d1.EqualityOfDistance(d2) != true {
+		t.Errorf("want both distance equal")
+	}
+}
