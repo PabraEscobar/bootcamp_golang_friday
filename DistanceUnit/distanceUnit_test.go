@@ -54,3 +54,10 @@ func TestEqualityforKiloMeters(t *testing.T) {
 		t.Errorf("unequal distance")
 	}
 }
+
+func TestCentimeterUnitCreation(t *testing.T) {
+	_, err := NewDistanceUnit(10, centimeters)
+	if err != nil {
+		t.Errorf("unit not created with centimeter")
+	}
+}

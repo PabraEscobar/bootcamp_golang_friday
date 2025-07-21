@@ -7,8 +7,9 @@ import (
 type Unit int
 
 const (
-	meters     Unit = iota
-	kilometers Unit = iota
+	meters Unit = iota
+	kilometers
+	centimeters
 )
 
 type distanceUnit struct {
