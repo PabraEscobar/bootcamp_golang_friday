@@ -61,3 +61,12 @@ func TestCentimeterUnitCreation(t *testing.T) {
 		t.Errorf("unit not created with centimeter")
 	}
 }
+
+func TestEqualityforCentiMeters(t *testing.T) {
+	d1, _ := NewDistanceUnit(10, centimeters)
+	d2, _ := NewDistanceUnit(10, centimeters)
+
+	if d1.EqualityOfDistance(d2) != true {
+		t.Errorf("unequal distance")
+	}
+}
