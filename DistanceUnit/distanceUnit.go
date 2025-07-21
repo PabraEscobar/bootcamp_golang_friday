@@ -59,6 +59,13 @@ func (d1 *distanceUnit) EqualityOfDistance(d2 *distanceUnit) bool {
 				return true
 			}
 		}
+	} else if d1.unit == meters {
+		if d2.unit == centimeters {
+			d2 = d2.CentimeterToMeter()
+			if d1.distance == d2.distance && d1.unit == d2.unit {
+				return true
+			}
+		}
 	}
 	return false
 }
