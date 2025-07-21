@@ -78,3 +78,11 @@ func TestEqualitForCentimeterAndMeter(t *testing.T) {
 		t.Errorf("want both distance equal")
 	}
 }
+
+func TestEqualitForMeterAndCentimeter(t *testing.T) {
+	d1, _ := NewDistanceUnit(1000, centimeters)
+	d2, _ := NewDistanceUnit(10, meters)
+	if d1.EqualityOfDistance(d2) != true {
+		t.Errorf("want both distance equal")
+	}
+}
