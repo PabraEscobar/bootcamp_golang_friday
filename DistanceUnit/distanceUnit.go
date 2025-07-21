@@ -36,7 +36,7 @@ func NewDistanceUnit(distance float64, unit Unit) (*distanceUnit, error) {
 	return &distanceUnit{distance: distance, unit: unit}, nil
 }
 
-func (d1 *distanceUnit) EqualityOfDistance(d2 *distanceUnit) bool {
+func (d1 *distanceUnit) equals(d2 *distanceUnit) bool {
 	return d1.Inmeter().distance == d2.Inmeter().distance
 }
 
