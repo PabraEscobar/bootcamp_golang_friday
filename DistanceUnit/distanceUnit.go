@@ -32,7 +32,7 @@ func (d1 *distanceUnit) Add(d2 *distanceUnit) *distanceUnit {
 	if d1.unit == kilometers {
 		return d1.TotalDistanceInKilometers(d2)
 	}
-	return d1.TotalDistanceInMeters(d2)
+	return d1.totalDistanceInMeters(d2)
 }
 
 func NewDistanceUnit(distance float64, unit Unit) (*distanceUnit, error) {
@@ -55,7 +55,7 @@ func (d *distanceUnit) Inmeter() *distanceUnit {
 	return d
 }
 
-func (d1 *distanceUnit) TotalDistanceInMeters(d2 *distanceUnit) *distanceUnit {
+func (d1 *distanceUnit) totalDistanceInMeters(d2 *distanceUnit) *distanceUnit {
 	return &distanceUnit{distance: d1.Inmeter().distance + d2.Inmeter().distance, unit: meters}
 }
 
