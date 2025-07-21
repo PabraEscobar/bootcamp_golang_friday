@@ -5,12 +5,12 @@ import (
 	"fmt"
 )
 
-type Unit int
+type Unit string
 
 const (
-	meters Unit = iota
-	kilometers
-	centimeters
+	meters      Unit = "meters"
+	kilometers  Unit = "kilometers"
+	centimeters Unit = "centimeters"
 )
 
 type distanceUnit struct {
@@ -19,20 +19,14 @@ type distanceUnit struct {
 }
 
 func (d1 distanceUnit) toString() string {
-
-	if d1.unit == 2 {
-		return fmt.Sprintf("distance %f centimeters", d1.distance)
-	} else if d1.unit == 1 {
-		return fmt.Sprintf("distance %f kilometers", d1.distance)
-	}
-	return fmt.Sprintf("distance %f meters", d1.distance)
+	return fmt.Sprintf("distance %f %s", d1.distance, d1.unit)
 }
 
 func (d1 *distanceUnit) Add(d2 *distanceUnit) *distanceUnit {
 	if d1.unit == kilometers {
-		return d1.TotalDistanceInKilometers(d2)
+		return &distanceUnit{distance: (d1.Inmeter().distance + d2.Inmeter().distance) * 0.001, unit: kilometers}
 	}
-	return d1.totalDistanceInMeters(d2)
+	return &distanceUnit{distance: d1.Inmeter().distance + d2.Inmeter().distance, unit: meters}
 }
 
 func NewDistanceUnit(distance float64, unit Unit) (*distanceUnit, error) {
@@ -48,17 +42,9 @@ func (d1 *distanceUnit) EqualityOfDistance(d2 *distanceUnit) bool {
 
 func (d *distanceUnit) Inmeter() *distanceUnit {
 	if d.unit == centimeters {
-		d = &distanceUnit{distance: d.distance / 100, unit: meters}
+		d = &distanceUnit{distance: d.distance * 0.01, unit: meters}
 	} else if d.unit == kilometers {
 		d = &distanceUnit{distance: d.distance * 1000, unit: meters}
 	}
 	return d
-}
-
-func (d1 *distanceUnit) totalDistanceInMeters(d2 *distanceUnit) *distanceUnit {
-	return &distanceUnit{distance: d1.Inmeter().distance + d2.Inmeter().distance, unit: meters}
-}
-
-func (d1 *distanceUnit) TotalDistanceInKilometers(d2 *distanceUnit) *distanceUnit {
-	return &distanceUnit{distance: (d1.Inmeter().distance + d2.Inmeter().distance) / 1000, unit: kilometers}
 }
