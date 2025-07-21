@@ -2,6 +2,7 @@ package distanceUnit
 
 import (
 	"errors"
+	"fmt"
 )
 
 type Unit int
@@ -15,6 +16,23 @@ const (
 type distanceUnit struct {
 	distance float64
 	unit     Unit
+}
+
+func (d1 distanceUnit) toString() string {
+
+	if d1.unit == 2 {
+		return fmt.Sprintf("distance %f centimeters", d1.distance)
+	} else if d1.unit == 1 {
+		return fmt.Sprintf("distance %f kilometers", d1.distance)
+	}
+	return fmt.Sprintf("distance %f meters", d1.distance)
+}
+
+func (d1 *distanceUnit) Add(d2 *distanceUnit) *distanceUnit {
+	if d1.unit == kilometers {
+		return d1.TotalDistanceInKilometers(d2)
+	}
+	return d1.TotalDistanceInMeters(d2)
 }
 
 func NewDistanceUnit(distance float64, unit Unit) (*distanceUnit, error) {
@@ -44,7 +62,3 @@ func (d1 *distanceUnit) TotalDistanceInMeters(d2 *distanceUnit) *distanceUnit {
 func (d1 *distanceUnit) TotalDistanceInKilometers(d2 *distanceUnit) *distanceUnit {
 	return &distanceUnit{distance: (d1.Inmeter().distance + d2.Inmeter().distance) / 1000, unit: kilometers}
 }
-
-// func (d1 *distanceUnit) TotalDistance( d2 *distanceUnit) *distanceUnit{
-// 	if d1.unit
-// }

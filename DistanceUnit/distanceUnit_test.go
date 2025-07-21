@@ -106,9 +106,11 @@ func TestEqualitForKilometerAndCentimeter(t *testing.T) {
 func TestTotalDistanceInMeters(t *testing.T) {
 	d1, _ := NewDistanceUnit(1000, meters)
 	d2, _ := NewDistanceUnit(1000, meters)
-	d3 := d1.TotalDistanceInMeters(d2)
-	if d3.distance != 2000 && d3.unit != meters {
-		t.Errorf("Wrong total")
+	d3 := d1.Add(d2)
+	expectedDistance := distanceUnit{distance: 2000, unit: meters}
+	if d3.EqualityOfDistance(&expectedDistance) != true {
+		t.Errorf("Wanted  %v but got  %v", expectedDistance.toString(), (*d3).toString())
+
 	}
 
 }
@@ -116,9 +118,10 @@ func TestTotalDistanceInMeters(t *testing.T) {
 func TestTotalDistanceInKilometers(t *testing.T) {
 	d1, _ := NewDistanceUnit(1000, kilometers)
 	d2, _ := NewDistanceUnit(1000, kilometers)
-	d3 := d1.TotalDistanceInKilometers(d2)
-	if d3.distance != 2000 && d3.unit != kilometers {
-		t.Errorf("Wrong total")
+	d3 := d1.Add(d2)
+	expectedDistance := distanceUnit{distance: 2000, unit: kilometers}
+	if d3.EqualityOfDistance(&expectedDistance) != true {
+		t.Errorf("Wanted  %v but got  %v", expectedDistance.toString(), (*d3).toString())
 	}
 
 }
