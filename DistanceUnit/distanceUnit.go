@@ -13,36 +13,36 @@ const (
 	centimeters Unit = "centimeters"
 )
 
-type distanceUnit struct {
+type distance struct {
 	value float64
 	unit  Unit
 }
 
-func (d1 distanceUnit) toString() string {
+func (d1 distance) toString() string {
 	return fmt.Sprintf("value %f %s", d1.value, d1.unit)
 }
 
-func (d1 *distanceUnit) Add(d2 *distanceUnit) *distanceUnit {
+func (d1 *distance) Add(d2 *distance) *distance {
 	if d1.unit == kilometers {
-		return &distanceUnit{value: (d1.Inmeter().value + d2.Inmeter().value) * 0.001, unit: kilometers}
+		return &distance{value: (d1.Inmeter().value + d2.Inmeter().value) * 0.001, unit: kilometers}
 	}
-	return &distanceUnit{value: d1.Inmeter().value + d2.Inmeter().value, unit: meters}
+	return &distance{value: d1.Inmeter().value + d2.Inmeter().value, unit: meters}
 }
 
-func NewDistanceUnit(value float64, unit Unit) (*distanceUnit, error) {
+func NewDistanceUnit(value float64, unit Unit) (*distance, error) {
 	if value < 0 {
 		return nil, errors.New("distance cannot be negative")
 	}
-	return &distanceUnit{value: value, unit: unit}, nil
+	return &distance{value: value, unit: unit}, nil
 }
 
-func (d1 *distanceUnit) equals(d2 *distanceUnit) bool {
+func (d1 *distance) equals(d2 *distance) bool {
 	return d1.Inmeter().value == d2.Inmeter().value
 }
 
-func (d *distanceUnit) Inmeter() *distanceUnit {
+func (d *distance) Inmeter() *distance {
 	m := distanceMap()
-	return &distanceUnit{value: d.value * m[d.unit], unit: meters}
+	return &distance{value: d.value * m[d.unit], unit: meters}
 }
 
 func distanceMap() map[Unit]float64 {

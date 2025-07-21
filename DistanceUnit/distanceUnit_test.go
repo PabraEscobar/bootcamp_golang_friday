@@ -107,7 +107,7 @@ func TestTotalDistanceInMeters(t *testing.T) {
 	d1, _ := NewDistanceUnit(1000, meters)
 	d2, _ := NewDistanceUnit(1000, meters)
 	d3 := d1.Add(d2)
-	expectedDistance := distanceUnit{value: 2000, unit: meters}
+	expectedDistance := distance{value: 2000, unit: meters}
 	if d3.equals(&expectedDistance) != true {
 		t.Errorf("Wanted  %v but got  %v", expectedDistance.toString(), (*d3).toString())
 
@@ -119,7 +119,7 @@ func TestTotalDistanceInKilometers(t *testing.T) {
 	d1, _ := NewDistanceUnit(1000, kilometers)
 	d2, _ := NewDistanceUnit(1000, kilometers)
 	d3 := d1.Add(d2)
-	expectedDistance := distanceUnit{value: 2000, unit: kilometers}
+	expectedDistance := distance{value: 2000, unit: kilometers}
 	if d3.equals(&expectedDistance) != true {
 		t.Errorf("Wanted  %v but got  %v", expectedDistance.toString(), (*d3).toString())
 	}
