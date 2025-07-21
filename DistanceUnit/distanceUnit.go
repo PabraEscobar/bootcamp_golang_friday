@@ -41,10 +41,12 @@ func (d1 *distanceUnit) equals(d2 *distanceUnit) bool {
 }
 
 func (d *distanceUnit) Inmeter() *distanceUnit {
-	if d.unit == centimeters {
-		d = &distanceUnit{distance: d.distance * 0.01, unit: meters}
-	} else if d.unit == kilometers {
-		d = &distanceUnit{distance: d.distance * 1000, unit: meters}
+	switch d.unit {
+	case centimeters:
+		return &distanceUnit{distance: d.distance * 0.01, unit: meters}
+	case kilometers:
+		return &distanceUnit{distance: d.distance * 1000, unit: meters}
+	default:
+		return d
 	}
-	return d
 }
