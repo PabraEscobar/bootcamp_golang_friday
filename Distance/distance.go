@@ -23,10 +23,8 @@ func (d1 distance) toString() string {
 }
 
 func (d1 *distance) Add(d2 *distance) *distance {
-	if d1.unit == kilometers {
-		return &distance{value: (d1.Inmeter().value + d2.Inmeter().value) * 0.001, unit: kilometers}
-	}
-	return &distance{value: d1.Inmeter().value + d2.Inmeter().value, unit: meters}
+	m := distanceMap()
+	return &distance{value: (d1.Inmeter().value + d2.Inmeter().value) / m[d1.unit], unit: d1.unit}
 }
 
 func NewDistanceUnit(value float64, unit Unit) (*distance, error) {
