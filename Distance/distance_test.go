@@ -188,3 +188,38 @@ func TestEqualityforKiloGrams(t *testing.T) {
 		t.Errorf("unequal distance")
 	}
 }
+
+func TestAddWeight(t *testing.T) {
+	w1, _ := NewWeightUnit(1000, kilogram)
+	w2, _ := NewWeightUnit(1, gram)
+	w3 := w1.Add(w2)
+	expectedWeight := Weight{measurement{value: 1000.001, unit: kilogram}}
+	if w3.equals(&expectedWeight) != true {
+		t.Errorf("Wanted  %v but got  %v", expectedWeight.toString(), (*w3).toString())
+
+	}
+
+}
+
+func TestAddWeight1(t *testing.T) {
+	w1, _ := NewWeightUnit(10, kilogram)
+	w2, _ := NewWeightUnit(1000000, milligram)
+	w3 := w1.Add(w2)
+	expectedWeight := Weight{measurement{value: 11, unit: kilogram}}
+	if w3.equals(&expectedWeight) != true {
+		t.Errorf("Wanted  %v but got  %v", expectedWeight.toString(), (*w3).toString())
+
+	}
+
+}
+
+func TestAddWeight2(t *testing.T) {
+	w1, _ := NewWeightUnit(1000, gram)
+	w2, _ := NewWeightUnit(1000000, milligram)
+	w3 := w1.Add(w2)
+	expectedWeight := Weight{measurement{value: 2000, unit: gram}}
+	if w3.equals(&expectedWeight) != true {
+		t.Errorf("Wanted  %v but got  %v", expectedWeight.toString(), (*w3).toString())
+
+	}
+}

@@ -76,3 +76,7 @@ func (d1 *measurement) Add(d2 *measurement) *measurement {
 func (d1 *Distance) Add(d2 *Distance) *Distance {
 	return &Distance{*(d1.measurement.Add(&d2.measurement))}
 }
+
+func (w1 *Weight) Add(w2 *Weight) *Weight {
+	return &Weight{*(w1.measurement.Add(&w2.measurement))}
+}
