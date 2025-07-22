@@ -223,3 +223,17 @@ func TestAddWeight2(t *testing.T) {
 
 	}
 }
+
+func TestDistanceWithgram(t *testing.T) {
+	_, err := NewDistanceUnit(12, gram)
+	if err == nil {
+		t.Errorf("distance is not in correct unit")
+	}
+}
+
+func TestWeightWithmeter(t *testing.T) {
+	_, err := NewWeightUnit(12, meter)
+	if err == nil {
+		t.Errorf("weight can't measured in this unit")
+	}
+}

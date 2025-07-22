@@ -40,14 +40,20 @@ func NewDistanceUnit(value float64, unit Unit) (*Distance, error) { //creating n
 	if value < 0 {
 		return nil, errors.New("distance cannot be negative")
 	}
-	return &Distance{measurement{value: value, unit: unit}}, nil
+	if unit == meter || unit == kilometer || unit == centimeter {
+		return &Distance{measurement{value: value, unit: unit}}, nil
+	}
+	return nil, errors.New("invalid unit")
 }
 
 func NewWeightUnit(value float64, unit Unit) (*Weight, error) { //creating new Distance struct
 	if value < 0 {
 		return nil, errors.New("distance cannot be negative")
 	}
-	return &Weight{measurement{value: value, unit: unit}}, nil
+	if unit == gram || unit == kilogram || unit == milligram {
+		return &Weight{measurement{value: value, unit: unit}}, nil
+	}
+	return nil, errors.New("invalid unit")
 }
 
 func (d1 *Distance) equals(d2 *Distance) bool { //Checking equality between the distances
