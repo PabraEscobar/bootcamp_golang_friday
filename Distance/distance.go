@@ -11,9 +11,12 @@ type Unit struct {
 }
 
 var (
-	meters      = Unit{name: "meters", baseConversionFactor: 1}
-	kilometers  = Unit{name: "kilometers", baseConversionFactor: 1000}
-	centimeters = Unit{name: "centimeters", baseConversionFactor: 0.01}
+	meter      = Unit{name: "meter", baseConversionFactor: 1}
+	kilometer  = Unit{name: "kilometer", baseConversionFactor: 1000}
+	centimeter = Unit{name: "centimeter", baseConversionFactor: 0.01}
+	gram       = Unit{name: "gram", baseConversionFactor: 1}
+	kilogram   = Unit{name: "kilogram", baseConversionFactor: 1000}
+	milligram  = Unit{name: "milligram", baseConversionFactor: 0.001}
 )
 
 type measurement struct {
@@ -25,9 +28,9 @@ type Distance struct {
 	measurement
 }
 
-// type Weight struct{
-// 	measurement
-// }
+type Weight struct {
+	measurement
+}
 
 func (d1 measurement) toString() string { //for displaying structure in a readable format
 	return fmt.Sprintf("value %f %v", d1.value, d1.unit)
@@ -39,6 +42,14 @@ func NewDistanceUnit(value float64, unit Unit) (*Distance, error) { //creating n
 	}
 	return &Distance{measurement{value: value, unit: unit}}, nil
 }
+
+func NewWeightUnit(value float64, unit Unit) (*Weight, error) { //creating new Distance struct
+	if value < 0 {
+		return nil, errors.New("distance cannot be negative")
+	}
+	return &Weight{measurement{value: value, unit: unit}}, nil
+}
+
 func (d1 *Distance) equals(d2 *Distance) bool { //Checking equality between the distances
 	return d1.measurement.equals(&d2.measurement)
 }
