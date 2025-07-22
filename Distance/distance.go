@@ -24,7 +24,12 @@ func (d1 distance) toString() string { //for displaying structure in a readable 
 
 func (d1 *distance) Add(d2 *distance) *distance {
 	m := distanceMap()
-	return &distance{value: (d1.InBase().value + d2.InBase().value) / m[d1.unit], unit: d1.unit} //converting both distance values to  meter and back to the left operand's unit
+
+	baseResult := d1.InBase().value + d2.InBase().value
+
+	resultInSelfUnit := baseResult / m[d1.unit]
+
+	return &distance{value: resultInSelfUnit, unit: d1.unit} //converting both distance values to  meter and back to the left operand's unit
 }
 
 func NewDistanceUnit(value float64, unit Unit) (*distance, error) { //creating new Distance struct
