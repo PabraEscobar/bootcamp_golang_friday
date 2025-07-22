@@ -58,3 +58,7 @@ func (d1 *measurement) Add(d2 *measurement) *measurement {
 
 	return &measurement{value: resultInSelfUnit, unit: d1.unit} //converting both distance values to  meter and back to the left operand's unit
 }
+
+func (d1 *Distance) Add(d2 *Distance) *Distance {
+	return &Distance{*(d1.measurement.Add(&d2.measurement))}
+}
