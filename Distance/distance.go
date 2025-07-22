@@ -21,7 +21,7 @@ type measurement struct {
 	unit  Unit
 }
 
-type Distance struct{
+type Distance struct {
 	measurement
 }
 
@@ -33,11 +33,11 @@ func (d1 measurement) toString() string { //for displaying structure in a readab
 	return fmt.Sprintf("value %f %v", d1.value, d1.unit)
 }
 
-func NewDistanceUnit(value float64, unit Unit) (*measurement, error) { //creating new Distance struct
+func NewDistanceUnit(value float64, unit Unit) (*Distance, error) { //creating new Distance struct
 	if value < 0 {
 		return nil, errors.New("distance cannot be negative")
 	}
-	return &measurement{value: value, unit: unit}, nil
+	return &Distance{measurement{value: value, unit: unit}}, nil
 }
 
 func (d1 *measurement) equals(d2 *measurement) bool { //Checking equality between the distances
