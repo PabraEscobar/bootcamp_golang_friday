@@ -151,3 +151,40 @@ func TestWeightCreation(t *testing.T) {
 		t.Errorf("Weight Not created")
 	}
 }
+
+func TestEqualityforgrams(t *testing.T) {
+	w1, _ := NewWeightUnit(1000, gram)
+	w2, _ := NewWeightUnit(1000, gram)
+
+	if w1.equals(w2) != true {
+		t.Errorf("unequal distance")
+	}
+}
+
+func TestEqualityforGramsAndKilograms(t *testing.T) {
+	w1, _ := NewWeightUnit(1000, gram)
+	w2, _ := NewWeightUnit(1, kilogram)
+
+	if w1.equals(w2) != true {
+		t.Errorf("unequal distance")
+	}
+
+}
+
+func TestEqualitForKilogramsAndGrams(t *testing.T) {
+	w1, _ := NewWeightUnit(1, kilogram)
+	w2, _ := NewWeightUnit(1000, gram)
+
+	if w1.equals(w2) != true {
+		t.Errorf("unequal distance")
+	}
+}
+
+func TestEqualityforKiloGrams(t *testing.T) {
+	w1, _ := NewWeightUnit(1000, kilogram)
+	w2, _ := NewWeightUnit(1000, kilogram)
+
+	if w1.equals(w2) != true {
+		t.Errorf("unequal distance")
+	}
+}

@@ -53,6 +53,9 @@ func NewWeightUnit(value float64, unit Unit) (*Weight, error) { //creating new D
 func (d1 *Distance) equals(d2 *Distance) bool { //Checking equality between the distances
 	return d1.measurement.equals(&d2.measurement)
 }
+func (w1 *Weight) equals(w2 *Weight) bool {
+	return w1.measurement.equals(&w2.measurement)
+}
 func (d1 *measurement) equals(d2 *measurement) bool { //Checking equality between the distances
 	return d1.InBase().value == d2.InBase().value
 }
