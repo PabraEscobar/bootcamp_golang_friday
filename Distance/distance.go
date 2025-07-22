@@ -39,7 +39,9 @@ func NewDistanceUnit(value float64, unit Unit) (*Distance, error) { //creating n
 	}
 	return &Distance{measurement{value: value, unit: unit}}, nil
 }
-
+func (d1 *Distance) equals(d2 *Distance) bool { //Checking equality between the distances
+	return d1.measurement.equals(&d2.measurement)
+}
 func (d1 *measurement) equals(d2 *measurement) bool { //Checking equality between the distances
 	return d1.InBase().value == d2.InBase().value
 }

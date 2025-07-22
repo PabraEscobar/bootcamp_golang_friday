@@ -24,7 +24,7 @@ func TestEqualityforMeters(t *testing.T) {
 	d1, _ := NewDistanceUnit(1000, meters)
 	d2, _ := NewDistanceUnit(1000, meters)
 
-	if d1.equals(&d2.measurement) != true {
+	if d1.equals(d2) != true {
 		t.Errorf("unequal distance")
 	}
 }
@@ -32,7 +32,7 @@ func TestEqualityforMeters(t *testing.T) {
 func TestEqualityforMetersAndkilometers(t *testing.T) {
 	d1, _ := NewDistanceUnit(1000, meters)
 	d2, _ := NewDistanceUnit(1, kilometers)
-	if d1.equals(&d2.measurement) != true {
+	if d1.equals(d2) != true {
 		t.Errorf("want both distance equal")
 	}
 
@@ -41,7 +41,7 @@ func TestEqualityforMetersAndkilometers(t *testing.T) {
 func TestEqualitForKilometerAndMeter(t *testing.T) {
 	d1, _ := NewDistanceUnit(1, kilometers)
 	d2, _ := NewDistanceUnit(1000, meters)
-	if d1.equals(&d2.measurement) != true {
+	if d1.equals(d2) != true {
 		t.Errorf("want both distance equal")
 	}
 }
@@ -50,7 +50,7 @@ func TestEqualityforKiloMeters(t *testing.T) {
 	d1, _ := NewDistanceUnit(1, kilometers)
 	d2, _ := NewDistanceUnit(1, kilometers)
 
-	if d1.equals(&d2.measurement) != true {
+	if d1.equals(d2) != true {
 		t.Errorf("unequal distance")
 	}
 }
@@ -66,7 +66,7 @@ func TestEqualityforCentiMeters(t *testing.T) {
 	d1, _ := NewDistanceUnit(10, centimeters)
 	d2, _ := NewDistanceUnit(10, centimeters)
 
-	if d1.equals(&d2.measurement) != true {
+	if d1.equals(d2) != true {
 		t.Errorf("unequal distance")
 	}
 }
@@ -74,7 +74,7 @@ func TestEqualityforCentiMeters(t *testing.T) {
 func TestEqualitForCentimeterAndMeter(t *testing.T) {
 	d1, _ := NewDistanceUnit(1000, centimeters)
 	d2, _ := NewDistanceUnit(10, meters)
-	if d1.equals(&d2.measurement) != true {
+	if d1.equals(d2) != true {
 		t.Errorf("want both distance equal")
 	}
 }
@@ -82,7 +82,7 @@ func TestEqualitForCentimeterAndMeter(t *testing.T) {
 func TestEqualitForMeterAndCentimeter(t *testing.T) {
 	d2, _ := NewDistanceUnit(1000, centimeters)
 	d1, _ := NewDistanceUnit(10, meters)
-	if d1.equals(&d2.measurement) != true {
+	if d1.equals(d2) != true {
 		t.Errorf("want both distance equal")
 	}
 }
@@ -90,7 +90,7 @@ func TestEqualitForMeterAndCentimeter(t *testing.T) {
 func TestEqualitForCentimeterAndKilometer(t *testing.T) {
 	d1, _ := NewDistanceUnit(1000000, centimeters)
 	d2, _ := NewDistanceUnit(10, kilometers)
-	if d1.equals(&d2.measurement) != true {
+	if d1.equals(d2) != true {
 		t.Errorf("want both distance equal")
 	}
 }
@@ -98,7 +98,7 @@ func TestEqualitForCentimeterAndKilometer(t *testing.T) {
 func TestEqualitForKilometerAndCentimeter(t *testing.T) {
 	d2, _ := NewDistanceUnit(1000000, centimeters)
 	d1, _ := NewDistanceUnit(10, kilometers)
-	if d1.equals(&d2.measurement) != true {
+	if d1.equals(d2) != true {
 		t.Errorf("want both distance equal")
 	}
 }
