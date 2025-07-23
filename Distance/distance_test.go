@@ -1,6 +1,7 @@
 package distance
 
 import (
+	"fmt"
 	"testing"
 )
 
@@ -265,6 +266,29 @@ func TestTemperatureAdd(t *testing.T) {
 func TestEqualitForCelsiusAndKelvin(t *testing.T) {
 	t1, _ := NewTemperature(1, celsius)
 	t2, _ := NewTemperature(274.5, kelvin)
+
+	if t1.equals(t2) != true {
+		t.Errorf("it should be equal")
+	}
+}
+
+func TestEqualitForCelsiusAndCelsius(t *testing.T) {
+	t1, _ := NewTemperature(1, celsius)
+	t2, _ := NewTemperature(1, celsius)
+
+	if t1.equals(t2) != true {
+		t.Errorf("it should be equal")
+	}
+}
+
+func TestEqualitForCelsiusAndFahrenheit(t *testing.T) {
+	t1, _ := NewTemperature(0, celsius)
+	t2, _ := NewTemperature(32, fahrenheit)
+
+	fmt.Println(t1.InBase())
+	fmt.Println(celsius)
+	fmt.Println(t2.InBase())
+	fmt.Println(fahrenheit)
 
 	if t1.equals(t2) != true {
 		t.Errorf("it should be equal")

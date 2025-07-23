@@ -3,6 +3,7 @@ package distance
 import (
 	"errors"
 	"fmt"
+	"math"
 )
 
 type Unit struct {
@@ -19,7 +20,7 @@ var (
 	kilogram   = Unit{name: "kilogram", baseConversionFactor: 1000, baseAdditionFactor: 0}
 	milligram  = Unit{name: "milligram", baseConversionFactor: 0.001, baseAdditionFactor: 0}
 	celsius    = Unit{name: "celsius", baseConversionFactor: 1, baseAdditionFactor: 0}
-	fahrenheit = Unit{name: "fahrenheit", baseConversionFactor: float64(5.0 / 9.0), baseAdditionFactor: -float64(32 / 9 * 5)}
+	fahrenheit = Unit{name: "fahrenheit", baseConversionFactor: math.Round(float64(5.0 / 9.0)), baseAdditionFactor: math.Round(-32 * (math.Round(float64(5.0 / 9.0))))}
 	kelvin     = Unit{name: "kelvin", baseConversionFactor: 1, baseAdditionFactor: -273.5}
 )
 
@@ -87,7 +88,8 @@ func (d1 *measurement) equals(d2 *measurement) bool { //Checking equality betwee
 }
 
 func (d *measurement) InBase() *measurement { //Converting measurement to base unit
-	return &measurement{value: (d.value * d.unit.baseConversionFactor) + d.unit.baseAdditionFactor, unit: d.unit}
+	return &measurement{value: ((d.value * d.unit.baseConversionFactor) + d.unit.baseAdditionFactor),
+		unit: d.unit}
 }
 
 func (t1 *Temperature) Add(t2 *Temperature) error {
