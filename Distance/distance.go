@@ -85,6 +85,10 @@ func (d *measurement) InBase() *measurement { //Converting measurement to base u
 	return &measurement{value: d.value * d.unit.baseConversionFactor, unit: d.unit}
 }
 
+func (t1 *Temperature) Add(t2 *Temperature) error {
+	return errors.New("Add can't performed on temperature")
+}
+
 func (d1 *measurement) Add(d2 *measurement) *measurement {
 
 	baseResult := d1.InBase().value + d2.InBase().value

@@ -251,3 +251,13 @@ func TestTemperatureWithGram(t *testing.T) {
 		t.Errorf("temperature should not be created with gram")
 	}
 }
+
+func TestTemperatureAdd(t *testing.T) {
+	t1, _ := NewTemperature(32, celsius)
+	t2, _ := NewTemperature(32, celsius)
+	err := t1.Add(t2)
+
+	if err == nil {
+		t.Errorf("add can't performed on temperature")
+	}
+}
