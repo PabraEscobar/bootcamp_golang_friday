@@ -8,18 +8,19 @@ import (
 type Unit struct {
 	name                 string
 	baseConversionFactor float64
+	baseAdditionFactor   float64
 }
 
 var (
-	meter      = Unit{name: "meter", baseConversionFactor: 1}
-	kilometer  = Unit{name: "kilometer", baseConversionFactor: 1000}
-	centimeter = Unit{name: "centimeter", baseConversionFactor: 0.01}
-	gram       = Unit{name: "gram", baseConversionFactor: 1}
-	kilogram   = Unit{name: "kilogram", baseConversionFactor: 1000}
-	milligram  = Unit{name: "milligram", baseConversionFactor: 0.001}
-	celsius    = Unit{name: "celsius", baseConversionFactor: 1}
-	fahrenheit = Unit{name: "fahrenheit", baseConversionFactor: float64(5.0 / 9.0)}
-	kelvin     = Unit{name: "kelvin", baseConversionFactor: 1}
+	meter      = Unit{name: "meter", baseConversionFactor: 1, baseAdditionFactor: 0}
+	kilometer  = Unit{name: "kilometer", baseConversionFactor: 1000, baseAdditionFactor: 0}
+	centimeter = Unit{name: "centimeter", baseConversionFactor: 0.01, baseAdditionFactor: 0}
+	gram       = Unit{name: "gram", baseConversionFactor: 1, baseAdditionFactor: 0}
+	kilogram   = Unit{name: "kilogram", baseConversionFactor: 1000, baseAdditionFactor: 0}
+	milligram  = Unit{name: "milligram", baseConversionFactor: 0.001, baseAdditionFactor: 0}
+	celsius    = Unit{name: "celsius", baseConversionFactor: 1, baseAdditionFactor: 0}
+	fahrenheit = Unit{name: "fahrenheit", baseConversionFactor: float64(5.0 / 9.0), baseAdditionFactor: -float64(32 / 9 * 5)}
+	kelvin     = Unit{name: "kelvin", baseConversionFactor: 1, baseAdditionFactor: -273.5}
 )
 
 type measurement struct {
@@ -71,6 +72,10 @@ func NewWeightUnit(value float64, unit Unit) (*Weight, error) { //creating new W
 	return nil, errors.New("invalid unit")
 }
 
+func (t1 *Temperature) equals(t2 *Temperature) bool {
+	return t1.measurement.equals((&t2.measurement))
+}
+
 func (d1 *Distance) equals(d2 *Distance) bool { //Checking equality between the distances
 	return d1.measurement.equals(&d2.measurement)
 }
@@ -82,7 +87,7 @@ func (d1 *measurement) equals(d2 *measurement) bool { //Checking equality betwee
 }
 
 func (d *measurement) InBase() *measurement { //Converting measurement to base unit
-	return &measurement{value: d.value * d.unit.baseConversionFactor, unit: d.unit}
+	return &measurement{value: (d.value * d.unit.baseConversionFactor) + d.unit.baseAdditionFactor, unit: d.unit}
 }
 
 func (t1 *Temperature) Add(t2 *Temperature) error {

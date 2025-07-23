@@ -261,3 +261,12 @@ func TestTemperatureAdd(t *testing.T) {
 		t.Errorf("add can't performed on temperature")
 	}
 }
+
+func TestEqualitForCelsiusAndKelvin(t *testing.T) {
+	t1, _ := NewTemperature(1, celsius)
+	t2, _ := NewTemperature(274.5, kelvin)
+
+	if t1.equals(t2) != true {
+		t.Errorf("it should be equal")
+	}
+}
