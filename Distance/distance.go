@@ -44,7 +44,11 @@ func (d1 measurement) toString() string { //for displaying structure in a readab
 }
 
 func NewTemperature(value float64, unit Unit) (*Temperature, error) {
-	return &Temperature{measurement{value: value, unit: unit}}, nil
+	if unit == celsius || unit == fahrenheit || unit == kelvin {
+		return &Temperature{measurement{value: value, unit: unit}}, nil
+	}
+	return nil, errors.New("invalid unit")
+
 }
 
 func NewDistanceUnit(value float64, unit Unit) (*Distance, error) { //creating new Distance struct

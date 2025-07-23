@@ -244,3 +244,10 @@ func TestTemperature(t *testing.T) {
 		t.Errorf("temperature not created")
 	}
 }
+
+func TestTemperatureWithGram(t *testing.T) {
+	_, err := NewTemperature(13, gram)
+	if err == nil {
+		t.Errorf("temperature should not be created with gram")
+	}
+}
