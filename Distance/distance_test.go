@@ -1,12 +1,11 @@
 package distance
 
 import (
-	"fmt"
 	"testing"
 )
 
 func TestDistanceUnitCreation(t *testing.T) {
-	_, err := NewDistanceUnit(1, kilometer)
+	_, err := NewDistance(1, kilometer)
 	if err != nil {
 		t.Errorf("Distance unit Not created")
 	}
@@ -14,7 +13,7 @@ func TestDistanceUnitCreation(t *testing.T) {
 }
 
 func TestDistanceUnitNotCreatedWithNegativeDistance(t *testing.T) {
-	_, err := NewDistanceUnit(-1, kilometer)
+	_, err := NewDistance(-1, kilometer)
 	if err == nil {
 		t.Errorf("Distance unit should not be created with negative value")
 	}
@@ -22,8 +21,8 @@ func TestDistanceUnitNotCreatedWithNegativeDistance(t *testing.T) {
 }
 
 func TestEqualityforMeters(t *testing.T) {
-	d1, _ := NewDistanceUnit(1000, meter)
-	d2, _ := NewDistanceUnit(1000, meter)
+	d1, _ := NewDistance(1000, meter)
+	d2, _ := NewDistance(1000, meter)
 
 	if d1.equals(d2) != true {
 		t.Errorf("unequal distance")
@@ -31,8 +30,8 @@ func TestEqualityforMeters(t *testing.T) {
 }
 
 func TestEqualityforMetersAndkilometers(t *testing.T) {
-	d1, _ := NewDistanceUnit(1000, meter)
-	d2, _ := NewDistanceUnit(1, kilometer)
+	d1, _ := NewDistance(1000, meter)
+	d2, _ := NewDistance(1, kilometer)
 	if d1.equals(d2) != true {
 		t.Errorf("want both distance equal")
 	}
@@ -40,16 +39,16 @@ func TestEqualityforMetersAndkilometers(t *testing.T) {
 }
 
 func TestEqualitForKilometerAndMeter(t *testing.T) {
-	d1, _ := NewDistanceUnit(1, kilometer)
-	d2, _ := NewDistanceUnit(1000, meter)
+	d1, _ := NewDistance(1, kilometer)
+	d2, _ := NewDistance(1000, meter)
 	if d1.equals(d2) != true {
 		t.Errorf("want both distance equal")
 	}
 }
 
 func TestEqualityforKiloMeters(t *testing.T) {
-	d1, _ := NewDistanceUnit(1, kilometer)
-	d2, _ := NewDistanceUnit(1, kilometer)
+	d1, _ := NewDistance(1, kilometer)
+	d2, _ := NewDistance(1, kilometer)
 
 	if d1.equals(d2) != true {
 		t.Errorf("unequal distance")
@@ -57,15 +56,15 @@ func TestEqualityforKiloMeters(t *testing.T) {
 }
 
 func TestCentimeterUnitCreation(t *testing.T) {
-	_, err := NewDistanceUnit(10, centimeter)
+	_, err := NewDistance(10, centimeter)
 	if err != nil {
 		t.Errorf("unit not created with centimeter")
 	}
 }
 
 func TestEqualityforCentiMeters(t *testing.T) {
-	d1, _ := NewDistanceUnit(10, centimeter)
-	d2, _ := NewDistanceUnit(10, centimeter)
+	d1, _ := NewDistance(10, centimeter)
+	d2, _ := NewDistance(10, centimeter)
 
 	if d1.equals(d2) != true {
 		t.Errorf("unequal distance")
@@ -73,40 +72,40 @@ func TestEqualityforCentiMeters(t *testing.T) {
 }
 
 func TestEqualitForCentimeterAndMeter(t *testing.T) {
-	d1, _ := NewDistanceUnit(1000, centimeter)
-	d2, _ := NewDistanceUnit(10, meter)
+	d1, _ := NewDistance(1000, centimeter)
+	d2, _ := NewDistance(10, meter)
 	if d1.equals(d2) != true {
 		t.Errorf("want both distance equal")
 	}
 }
 
 func TestEqualitForMeterAndCentimeter(t *testing.T) {
-	d2, _ := NewDistanceUnit(1000, centimeter)
-	d1, _ := NewDistanceUnit(10, meter)
+	d2, _ := NewDistance(1000, centimeter)
+	d1, _ := NewDistance(10, meter)
 	if d1.equals(d2) != true {
 		t.Errorf("want both distance equal")
 	}
 }
 
 func TestEqualitForCentimeterAndKilometer(t *testing.T) {
-	d1, _ := NewDistanceUnit(1000000, centimeter)
-	d2, _ := NewDistanceUnit(10, kilometer)
+	d1, _ := NewDistance(1000000, centimeter)
+	d2, _ := NewDistance(10, kilometer)
 	if d1.equals(d2) != true {
 		t.Errorf("want both distance equal")
 	}
 }
 
 func TestEqualitForKilometerAndCentimeter(t *testing.T) {
-	d2, _ := NewDistanceUnit(1000000, centimeter)
-	d1, _ := NewDistanceUnit(10, kilometer)
+	d2, _ := NewDistance(1000000, centimeter)
+	d1, _ := NewDistance(10, kilometer)
 	if d1.equals(d2) != true {
 		t.Errorf("want both distance equal")
 	}
 }
 
 func TestAddDistance(t *testing.T) {
-	d1, _ := NewDistanceUnit(1000, meter)
-	d2, _ := NewDistanceUnit(1000, meter)
+	d1, _ := NewDistance(1000, meter)
+	d2, _ := NewDistance(1000, meter)
 	d3 := d1.Add(d2)
 	expectedDistance := Distance{measurement{value: 2000, unit: meter}}
 	if d3.equals(&expectedDistance) != true {
@@ -117,8 +116,8 @@ func TestAddDistance(t *testing.T) {
 }
 
 func TestAddDistance1(t *testing.T) {
-	d1, _ := NewDistanceUnit(100, meter)
-	d2, _ := NewDistanceUnit(1, kilometer)
+	d1, _ := NewDistance(100, meter)
+	d2, _ := NewDistance(1, kilometer)
 	d3 := d1.Add(d2)
 	expectedDistance := Distance{measurement{value: 1100, unit: meter}}
 	if d3.equals(&expectedDistance) != true {
@@ -128,8 +127,8 @@ func TestAddDistance1(t *testing.T) {
 }
 
 func TestAddDistance2(t *testing.T) {
-	d1, _ := NewDistanceUnit(100, kilometer)
-	d2, _ := NewDistanceUnit(1, meter)
+	d1, _ := NewDistance(100, kilometer)
+	d2, _ := NewDistance(1, meter)
 	d3 := d1.Add(d2)
 	expectedDistance := Distance{measurement{value: 100.001, unit: kilometer}}
 	if d3.equals(&expectedDistance) != true {
@@ -139,7 +138,7 @@ func TestAddDistance2(t *testing.T) {
 }
 
 func TestNewDistance(t *testing.T) {
-	_, err := NewDistanceUnit(12, meter)
+	_, err := NewDistance(12, meter)
 
 	if err != nil {
 		t.Errorf("Wanted distance but not created")
@@ -147,15 +146,15 @@ func TestNewDistance(t *testing.T) {
 }
 
 func TestWeightCreation(t *testing.T) {
-	_, err := NewWeightUnit(1, kilogram)
+	_, err := NewWeight(1, kilogram)
 	if err != nil {
 		t.Errorf("Weight Not created")
 	}
 }
 
 func TestEqualityforgrams(t *testing.T) {
-	w1, _ := NewWeightUnit(1000, gram)
-	w2, _ := NewWeightUnit(1000, gram)
+	w1, _ := NewWeight(1000, gram)
+	w2, _ := NewWeight(1000, gram)
 
 	if w1.equals(w2) != true {
 		t.Errorf("unequal distance")
@@ -163,8 +162,8 @@ func TestEqualityforgrams(t *testing.T) {
 }
 
 func TestEqualityforGramsAndKilograms(t *testing.T) {
-	w1, _ := NewWeightUnit(1000, gram)
-	w2, _ := NewWeightUnit(1, kilogram)
+	w1, _ := NewWeight(1000, gram)
+	w2, _ := NewWeight(1, kilogram)
 
 	if w1.equals(w2) != true {
 		t.Errorf("unequal distance")
@@ -173,8 +172,8 @@ func TestEqualityforGramsAndKilograms(t *testing.T) {
 }
 
 func TestEqualitForKilogramsAndGrams(t *testing.T) {
-	w1, _ := NewWeightUnit(1, kilogram)
-	w2, _ := NewWeightUnit(1000, gram)
+	w1, _ := NewWeight(1, kilogram)
+	w2, _ := NewWeight(1000, gram)
 
 	if w1.equals(w2) != true {
 		t.Errorf("unequal distance")
@@ -182,8 +181,8 @@ func TestEqualitForKilogramsAndGrams(t *testing.T) {
 }
 
 func TestEqualityforKiloGrams(t *testing.T) {
-	w1, _ := NewWeightUnit(1000, kilogram)
-	w2, _ := NewWeightUnit(1000, kilogram)
+	w1, _ := NewWeight(1000, kilogram)
+	w2, _ := NewWeight(1000, kilogram)
 
 	if w1.equals(w2) != true {
 		t.Errorf("unequal distance")
@@ -191,8 +190,8 @@ func TestEqualityforKiloGrams(t *testing.T) {
 }
 
 func TestAddWeight(t *testing.T) {
-	w1, _ := NewWeightUnit(1000, kilogram)
-	w2, _ := NewWeightUnit(1, gram)
+	w1, _ := NewWeight(1000, kilogram)
+	w2, _ := NewWeight(1, gram)
 	w3 := w1.Add(w2)
 	expectedWeight := Weight{measurement{value: 1000.001, unit: kilogram}}
 	if w3.equals(&expectedWeight) != true {
@@ -203,8 +202,8 @@ func TestAddWeight(t *testing.T) {
 }
 
 func TestAddWeight1(t *testing.T) {
-	w1, _ := NewWeightUnit(10, kilogram)
-	w2, _ := NewWeightUnit(1000000, milligram)
+	w1, _ := NewWeight(10, kilogram)
+	w2, _ := NewWeight(1000000, milligram)
 	w3 := w1.Add(w2)
 	expectedWeight := Weight{measurement{value: 11, unit: kilogram}}
 	if w3.equals(&expectedWeight) != true {
@@ -215,8 +214,8 @@ func TestAddWeight1(t *testing.T) {
 }
 
 func TestAddWeight2(t *testing.T) {
-	w1, _ := NewWeightUnit(1000, gram)
-	w2, _ := NewWeightUnit(1000000, milligram)
+	w1, _ := NewWeight(1000, gram)
+	w2, _ := NewWeight(1000000, milligram)
 	w3 := w1.Add(w2)
 	expectedWeight := Weight{measurement{value: 2000, unit: gram}}
 	if w3.equals(&expectedWeight) != true {
@@ -226,14 +225,14 @@ func TestAddWeight2(t *testing.T) {
 }
 
 func TestDistanceWithgram(t *testing.T) {
-	_, err := NewDistanceUnit(12, gram)
+	_, err := NewDistance(12, gram)
 	if err == nil {
 		t.Errorf("distance is not in correct unit")
 	}
 }
 
 func TestWeightWithmeter(t *testing.T) {
-	_, err := NewWeightUnit(12, meter)
+	_, err := NewWeight(12, meter)
 	if err == nil {
 		t.Errorf("weight can't measured in this unit")
 	}
@@ -284,12 +283,6 @@ func TestEqualitForCelsiusAndCelsius(t *testing.T) {
 func TestEqualitForCelsiusAndFahrenheit(t *testing.T) {
 	t1, _ := NewTemperature(0, celsius)
 	t2, _ := NewTemperature(32, fahrenheit)
-
-	fmt.Println(t1.InBase())
-	fmt.Println(celsius)
-	fmt.Println(t2.InBase())
-	fmt.Println(fahrenheit)
-
 	if t1.equals(t2) != true {
 		t.Errorf("it should be equal")
 	}

@@ -53,7 +53,7 @@ func NewTemperature(value float64, unit Unit) (*Temperature, error) {
 
 }
 
-func NewDistanceUnit(value float64, unit Unit) (*Distance, error) { //creating new Distance struct
+func NewDistance(value float64, unit Unit) (*Distance, error) { //creating new Distance struct
 	if value < 0 {
 		return nil, errors.New("distance cannot be negative")
 	}
@@ -63,7 +63,7 @@ func NewDistanceUnit(value float64, unit Unit) (*Distance, error) { //creating n
 	return nil, errors.New("invalid unit")
 }
 
-func NewWeightUnit(value float64, unit Unit) (*Weight, error) { //creating new Weight struct
+func NewWeight(value float64, unit Unit) (*Weight, error) { //creating new Weight struct
 	if value < 0 {
 		return nil, errors.New("distance cannot be negative")
 	}
