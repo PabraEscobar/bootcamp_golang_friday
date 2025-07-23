@@ -46,7 +46,7 @@ func NewDistanceUnit(value float64, unit Unit) (*Distance, error) { //creating n
 	return nil, errors.New("invalid unit")
 }
 
-func NewWeightUnit(value float64, unit Unit) (*Weight, error) { //creating new Distance struct
+func NewWeightUnit(value float64, unit Unit) (*Weight, error) { //creating new Weight struct
 	if value < 0 {
 		return nil, errors.New("distance cannot be negative")
 	}
@@ -59,14 +59,14 @@ func NewWeightUnit(value float64, unit Unit) (*Weight, error) { //creating new D
 func (d1 *Distance) equals(d2 *Distance) bool { //Checking equality between the distances
 	return d1.measurement.equals(&d2.measurement)
 }
-func (w1 *Weight) equals(w2 *Weight) bool {
+func (w1 *Weight) equals(w2 *Weight) bool { //Checking equality between the wegihts
 	return w1.measurement.equals(&w2.measurement)
 }
-func (d1 *measurement) equals(d2 *measurement) bool { //Checking equality between the distances
+func (d1 *measurement) equals(d2 *measurement) bool { //Checking equality between the measurement
 	return d1.InBase().value == d2.InBase().value
 }
 
-func (d *measurement) InBase() *measurement { //Converting all distances to meter
+func (d *measurement) InBase() *measurement { //Converting measurement to base unit
 	return &measurement{value: d.value * d.unit.baseConversionFactor, unit: d.unit}
 }
 
@@ -76,7 +76,7 @@ func (d1 *measurement) Add(d2 *measurement) *measurement {
 
 	resultInSelfUnit := baseResult / d1.unit.baseConversionFactor
 
-	return &measurement{value: resultInSelfUnit, unit: d1.unit} //converting both distance values to  meter and back to the left operand's unit
+	return &measurement{value: resultInSelfUnit, unit: d1.unit} //converting measurement back to the left operand's unit
 }
 
 func (d1 *Distance) Add(d2 *Distance) *Distance {
