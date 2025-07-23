@@ -17,11 +17,18 @@ var (
 	gram       = Unit{name: "gram", baseConversionFactor: 1}
 	kilogram   = Unit{name: "kilogram", baseConversionFactor: 1000}
 	milligram  = Unit{name: "milligram", baseConversionFactor: 0.001}
+	celsius    = Unit{name: "celsius", baseConversionFactor: 1}
+	fahrenheit = Unit{name: "fahrenheit", baseConversionFactor: float64(5.0 / 9.0)}
+	kelvin     = Unit{name: "kelvin", baseConversionFactor: 1}
 )
 
 type measurement struct {
 	value float64
 	unit  Unit
+}
+
+type Temperature struct {
+	measurement
 }
 
 type Distance struct {
@@ -34,6 +41,10 @@ type Weight struct {
 
 func (d1 measurement) toString() string { //for displaying structure in a readable format
 	return fmt.Sprintf("value %f %v", d1.value, d1.unit)
+}
+
+func NewTemperature(value float64, unit Unit) (*Temperature, error) {
+	return &Temperature{measurement{value: value, unit: unit}}, nil
 }
 
 func NewDistanceUnit(value float64, unit Unit) (*Distance, error) { //creating new Distance struct

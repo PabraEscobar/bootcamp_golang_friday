@@ -237,3 +237,10 @@ func TestWeightWithmeter(t *testing.T) {
 		t.Errorf("weight can't measured in this unit")
 	}
 }
+
+func TestTemperature(t *testing.T) {
+	_, err := NewTemperature(32, celsius)
+	if err != nil {
+		t.Errorf("temperature not created")
+	}
+}
