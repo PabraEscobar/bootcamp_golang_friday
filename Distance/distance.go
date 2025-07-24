@@ -11,6 +11,10 @@ type Unit struct {
 	baseConversionFactor float64
 	baseAdditionFactor   float64
 }
+type TemperatureUnit struct {
+	Unit
+	baseAdditionFactor float64
+}
 
 var (
 	meter      = Unit{name: "meter", baseConversionFactor: 1, baseAdditionFactor: 0}
