@@ -84,7 +84,7 @@ func NewWeight(value float64, unit Unit) (*Weight, error) { //creating new Weigh
 }
 
 func (t1 *Temperature) equals(t2 *Temperature) bool {
-	return t1.measurement.equals((&t2.measurement))
+	return (t1.inBase()).value == (t2.inBase()).value
 }
 
 func (d1 *Distance) equals(d2 *Distance) bool { //Checking equality between the distances
