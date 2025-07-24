@@ -238,24 +238,31 @@ func TestWeightWithmeter(t *testing.T) {
 	}
 }
 
-func TestTemperature(t *testing.T) {
-	_, err := NewTemperature(32, celsius)
+func TestTemperatureCreationWithCelsius(t *testing.T) {
+	_, err := NewTemperature(32, Celsius)
 	if err != nil {
 		t.Errorf("temperature not created")
 	}
 }
 
-func TestTemperatureWithGram(t *testing.T) {
-	_, err := NewTemperature(13, gram)
-	if err == nil {
-		t.Errorf("temperature should not be created with gram")
+func TestTemperatureCreationWithKelvin(t *testing.T) {
+	_, err := NewTemperature(32, Kelvin)
+	if err != nil {
+		t.Errorf("temperature not created")
+	}
+}
+
+func TestTemperatureCreationWithFahreinheit(t *testing.T) {
+	_, err := NewTemperature(32, Fahrenheit)
+	if err != nil {
+		t.Errorf("temperature not created")
 	}
 }
 
 func TestTemperatureAdd(t *testing.T) {
-	t1, _ := NewTemperature(32, celsius)
-	t2, _ := NewTemperature(32, celsius)
-	err := t1.Add(t2)
+	thirtytwoCelsius, _ := NewTemperature(32, Celsius)
+	thirtyCelsius, _ := NewTemperature(30, Celsius)
+	err := thirtytwoCelsius.Add(thirtyCelsius)
 
 	if err == nil {
 		t.Errorf("add can't performed on temperature")
@@ -263,27 +270,27 @@ func TestTemperatureAdd(t *testing.T) {
 }
 
 func TestEqualitForCelsiusAndKelvin(t *testing.T) {
-	t1, _ := NewTemperature(1, celsius)
-	t2, _ := NewTemperature(274.5, kelvin)
+	oneCelsius, _ := NewTemperature(1, Celsius)
+	twoSeventyFourKelvin, _ := NewTemperature(274.15, Kelvin)
 
-	if t1.equals(t2) != true {
-		t.Errorf("it should be equal")
+	if oneCelsius.equals(twoSeventyFourKelvin) != true {
+		t.Errorf("one celsius should be equal to 274.15 kelvin")
 	}
 }
 
 func TestEqualitForCelsiusAndCelsius(t *testing.T) {
-	t1, _ := NewTemperature(1, celsius)
-	t2, _ := NewTemperature(1, celsius)
+	oneCelsius, _ := NewTemperature(1, Celsius)
+	twoCelsius, _ := NewTemperature(2, Celsius)
 
-	if t1.equals(t2) != true {
-		t.Errorf("it should be equal")
+	if oneCelsius.equals(twoCelsius) == true {
+		t.Errorf("one celsius should not be equal to two celsius")
 	}
 }
 
 func TestEqualitForCelsiusAndFahrenheit(t *testing.T) {
-	t1, _ := NewTemperature(0, celsius)
-	t2, _ := NewTemperature(32, fahrenheit)
-	if t1.equals(t2) != true {
-		t.Errorf("it should be equal")
+	zeroCelsius, _ := NewTemperature(0, Celsius)
+	thirtyTwoFahrenheit, _ := NewTemperature(32, Fahrenheit)
+	if zeroCelsius.equals(thirtyTwoFahrenheit) != true {
+		t.Errorf("zero celsius should be equal to thirty two fahrenheit")
 	}
 }

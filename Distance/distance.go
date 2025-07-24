@@ -17,6 +17,11 @@ type TemperatureUnit struct {
 }
 
 var (
+	Celsius    = TemperatureUnit{Unit: celsius, baseAdditionFactor: 0}
+	Kelvin     = TemperatureUnit{Unit: kelvin, baseAdditionFactor: -273.15}
+	Fahrenheit = TemperatureUnit{Unit: fahrenheit, baseAdditionFactor: math.Round(-32 * (math.Round(float64(5.0 / 9.0))))}
+)
+var (
 	meter      = Unit{name: "meter", baseConversionFactor: 1, baseAdditionFactor: 0}
 	kilometer  = Unit{name: "kilometer", baseConversionFactor: 1000, baseAdditionFactor: 0}
 	centimeter = Unit{name: "centimeter", baseConversionFactor: 0.01, baseAdditionFactor: 0}
@@ -25,7 +30,7 @@ var (
 	milligram  = Unit{name: "milligram", baseConversionFactor: 0.001, baseAdditionFactor: 0}
 	celsius    = Unit{name: "celsius", baseConversionFactor: 1, baseAdditionFactor: 0}
 	fahrenheit = Unit{name: "fahrenheit", baseConversionFactor: math.Round(float64(5.0 / 9.0)), baseAdditionFactor: math.Round(-32 * (math.Round(float64(5.0 / 9.0))))}
-	kelvin     = Unit{name: "kelvin", baseConversionFactor: 1, baseAdditionFactor: -273.5}
+	kelvin     = Unit{name: "kelvin", baseConversionFactor: 1, baseAdditionFactor: -273.15}
 )
 
 type measurement struct {
@@ -49,11 +54,11 @@ func (d1 measurement) toString() string { //for displaying structure in a readab
 	return fmt.Sprintf("value %f %v", d1.value, d1.unit)
 }
 
-func NewTemperature(value float64, unit Unit) (*Temperature, error) {
-	if unit == celsius || unit == fahrenheit || unit == kelvin {
-		return &Temperature{measurement{value: value, unit: unit}}, nil
+func NewTemperature(value float64, unit TemperatureUnit) (*Temperature, error) {
+	if value < 0 && unit == Kelvin {
+		return nil, errors.New("negative temoerature in kelvin not possible")
 	}
-	return nil, errors.New("invalid unit")
+	return &Temperature{measurement{value: value, unit: unit.Unit}}, nil
 
 }
 
