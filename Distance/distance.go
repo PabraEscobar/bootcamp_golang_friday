@@ -40,6 +40,7 @@ type measurement struct {
 
 type Temperature struct {
 	measurement
+	baseAdditionFactor float64
 }
 
 type Distance struct {
@@ -58,7 +59,7 @@ func NewTemperature(value float64, unit TemperatureUnit) (*Temperature, error) {
 	if value < 0 && unit == Kelvin {
 		return nil, errors.New("negative temoerature in kelvin not possible")
 	}
-	return &Temperature{measurement{value: value, unit: unit.Unit}}, nil
+	return &Temperature{measurement{value: value, unit: unit.Unit}, unit.baseAdditionFactor}, nil
 
 }
 
