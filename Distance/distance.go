@@ -54,13 +54,13 @@ type Weight struct {
 func (d1 measurement) toString() string { //for displaying structure in a readable format
 	return fmt.Sprintf("value %f %v", d1.value, d1.unit)
 }
-
+func (u *TemperatureUnit) toCelsius(value float64) float64 {
+	return value*u.baseConversionFactor + u.baseAdditionFactor
+}
 func NewTemperature(value float64, unit TemperatureUnit) (*Temperature, error) {
-	if value < 0 && unit == Kelvin {
-		return nil, errors.New("negative temoerature in kelvin not possible")
-	}
-	if unit == Celsius && value < (-273.15) {
-		return nil, errors.New("Temperature cannot be less Than -273 Celsius")
+	celsiusValue := unit.toCelsius(value)
+	if celsiusValue < (-273.15) {
+		return nil, errors.New("Temperarture cannot be creted with this value")
 	}
 	return &Temperature{measurement{value: value, unit: unit.Unit}, unit.baseAdditionFactor}, nil
 
