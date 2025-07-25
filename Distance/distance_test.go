@@ -294,3 +294,10 @@ func TestEqualitForCelsiusAndFahrenheit(t *testing.T) {
 		t.Errorf("zero celsius should be equal to thirty two fahrenheit")
 	}
 }
+
+func TestCannotCreateTempBelowNegativeLimitOfCelsius(t *testing.T) {
+	_, err := NewTemperature(-473, Celsius)
+	if err == nil {
+		t.Errorf("Must not create temperature below -273.15 celsius")
+	}
+}

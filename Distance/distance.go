@@ -59,6 +59,9 @@ func NewTemperature(value float64, unit TemperatureUnit) (*Temperature, error) {
 	if value < 0 && unit == Kelvin {
 		return nil, errors.New("negative temoerature in kelvin not possible")
 	}
+	if unit == Celsius && value < (-273.15) {
+		return nil, errors.New("Temperature cannot be less Than -273 Celsius")
+	}
 	return &Temperature{measurement{value: value, unit: unit.Unit}, unit.baseAdditionFactor}, nil
 
 }
