@@ -326,6 +326,6 @@ func TestAddTwoKilometerWithFiveHundredMetersWithAdderInterface(t *testing.T) {
 	b = fiveHundredMeter
 
 	if b.Add(a.(*Distance)).measurement.value != 2500 {
-		t.Errorf("")
+		t.Errorf("fiveHundredMeter added to TwoKilometer should be equal to 2500 Meter")
 	}
 }
