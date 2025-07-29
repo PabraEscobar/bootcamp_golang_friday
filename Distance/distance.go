@@ -113,23 +113,22 @@ func (t *Temperature) inBase() *Temperature {
 	return &Temperature{measurement: measurement{value: (t.measurement.value * t.measurement.unit.baseConversionFactor) + t.baseAdditionFactor}}
 }
 
-func (t1 *Temperature) Add(t2 *Temperature) error {
-	return errors.New("Add can't performed on temperature")
+func (d1 *Distance) Add(d2 *Distance) *Distance {
+	m1 := d1.measurement
+	m2 := d2.measurement
+	baseResult := m1.InBase().value + m2.InBase().value
+
+	resultInSelfUnit := baseResult / m1.unit.baseConversionFactor
+
+	return &Distance{measurement{value: resultInSelfUnit, unit: m1.unit}}
 }
 
-func (d1 *measurement) Add(d2 *measurement) *measurement {
-
+func (w1 *Weight) Add(w2 *Weight) *Weight {
+	d1 := w1.measurement
+	d2 := w2.measurement
 	baseResult := d1.InBase().value + d2.InBase().value
 
 	resultInSelfUnit := baseResult / d1.unit.baseConversionFactor
 
-	return &measurement{value: resultInSelfUnit, unit: d1.unit} //converting measurement back to the left operand's unit
-}
-
-func (d1 *Distance) Add(d2 *Distance) *Distance {
-	return &Distance{*(d1.measurement.Add(&d2.measurement))}
-}
-
-func (w1 *Weight) Add(w2 *Weight) *Weight {
-	return &Weight{*(w1.measurement.Add(&w2.measurement))}
+	return &Weight{measurement{value: resultInSelfUnit, unit: d1.unit}}
 }

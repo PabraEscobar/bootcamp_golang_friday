@@ -259,16 +259,6 @@ func TestTemperatureCreationWithFahreinheit(t *testing.T) {
 	}
 }
 
-func TestTemperatureAdd(t *testing.T) {
-	thirtytwoCelsius, _ := NewTemperature(32, Celsius)
-	thirtyCelsius, _ := NewTemperature(30, Celsius)
-	err := thirtytwoCelsius.Add(thirtyCelsius)
-
-	if err == nil {
-		t.Errorf("add can't performed on temperature")
-	}
-}
-
 func TestEqualitForCelsiusAndKelvin(t *testing.T) {
 	oneCelsius, _ := NewTemperature(1, Celsius)
 	twoSeventyFourKelvin, _ := NewTemperature(274.15, Kelvin)
