@@ -6,6 +6,10 @@ import (
 	"math"
 )
 
+type adder interface {
+	Add(any) any
+}
+
 type Unit struct {
 	name                 string
 	baseConversionFactor float64
