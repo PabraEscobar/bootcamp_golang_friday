@@ -1,4 +1,4 @@
-package distance
+package measurement
 
 import (
 	"errors"
