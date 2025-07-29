@@ -5,9 +5,8 @@ import (
 	"fmt"
 	"math"
 )
-
-type adder interface {
-	Add(any) any
+type adder[T any] interface{
+	Add(t T) T
 }
 
 type Unit struct {
