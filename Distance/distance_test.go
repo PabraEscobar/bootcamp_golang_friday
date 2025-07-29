@@ -291,3 +291,41 @@ func TestCannotCreateTempBelowNegativeLimitOfCelsius(t *testing.T) {
 		t.Errorf("Must not create temperature below -273.15 celsius")
 	}
 }
+
+func TestAddHundredGramWithOneKilogramWithAdderInterface(t *testing.T) {
+	hundredGram, _ := NewWeight(100, gram)
+	oneKilogram, _ := NewWeight(1, kilogram)
+
+	var a adder[*Weight]
+	a = hundredGram
+
+	if a.Add(oneKilogram).measurement.value != 1100 {
+		t.Errorf("oneKilogram added to hundred gram should be equal to 1100 grams")
+	}
+}
+
+func TestAddOneKilometerWithFiveHundredMetersWithAdderInterface(t *testing.T) {
+	oneKiloMeter, _ := NewDistance(1, kilometer)
+	fiveHundredMeter, _ := NewDistance(500, meter)
+
+	var b adder[*Distance]
+	b = oneKiloMeter
+
+	if b.Add(fiveHundredMeter).measurement.value != 1.5 {
+		t.Errorf(("oneKiloMeter added to fivehundred meter should be equal to 1.5 Kilometer"))
+	}
+}
+
+func TestAddTwoKilometerWithFiveHundredMetersWithAdderInterface(t *testing.T) {
+	TwoKilometer, _ := NewDistance(2, kilometer)
+	fiveHundredMeter, _ := NewDistance(500, meter)
+
+	var a adder[*Distance]
+	var b adder[*Distance]
+	a = TwoKilometer
+	b = fiveHundredMeter
+
+	if b.Add(a.(*Distance)).measurement.value != 2500 {
+		t.Errorf("")
+	}
+}
