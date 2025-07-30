@@ -103,40 +103,6 @@ func TestEqualitForKilometerAndCentimeter(t *testing.T) {
 	}
 }
 
-func TestAddDistance(t *testing.T) {
-	d1, _ := NewDistance(1000, Meter)
-	d2, _ := NewDistance(1000, Meter)
-	d3 := d1.Add(d2)
-	expectedDistance := Distance{value: 2000, unit: Meter}
-	if d3.equals(&expectedDistance) != true {
-		t.Errorf("Wanted  %v but got  %v", expectedDistance.value, d3.value)
-
-	}
-
-}
-
-func TestAddDistance1(t *testing.T) {
-	d1, _ := NewDistance(100, Meter)
-	d2, _ := NewDistance(1, Kilometer)
-	d3 := d1.Add(d2)
-	expectedDistance := Distance{value: 1100, unit: Meter}
-	if d3.equals(&expectedDistance) != true {
-		t.Errorf("Wanted  %v but got  %v", expectedDistance.value, d3.value)
-	}
-
-}
-
-func TestAddDistance2(t *testing.T) {
-	d1, _ := NewDistance(100, Kilometer)
-	d2, _ := NewDistance(1, Meter)
-	d3 := d1.Add(d2)
-	expectedDistance := Distance{value: 100.001, unit: Kilometer}
-	if d3.equals(&expectedDistance) != true {
-		t.Errorf("Wanted  %v but got  %v", expectedDistance.value, d3.value)
-	}
-
-}
-
 func TestNewDistance(t *testing.T) {
 	_, err := NewDistance(12, Meter)
 
@@ -303,5 +269,29 @@ func TestMilligramToGram(t *testing.T) {
 	thousandMilligram, _ := NewWeight(1000, Milligram)
 	if thousandMilligram.unit.toGram(thousandMilligram.value) != 1 {
 		t.Errorf("thousand milligram should be equal to 1 gram")
+	}
+}
+
+func TestAdderInterface(t *testing.T) {
+	oneKilometer, _ := NewDistance(1, Kilometer)
+	var a Adder
+	a = oneKilometer
+	_, err := oneKilometer.Add(a)
+	if err != nil {
+		t.Errorf("Distance type implements Adder interface so error should be nil")
+	}
+}
+
+func TestAdd1000MeterWithOneKiloMeterWithAdderInterface(t *testing.T) {
+	thousandMeter, _ := NewDistance(1000, Meter)
+	oneKilometer, _ := NewDistance(1, Kilometer)
+	var a Adder
+	a = oneKilometer
+	res, err := thousandMeter.Add(a)
+	if err != nil {
+		t.Errorf("Distance type implements Adder interface so error should be nil")
+	}
+	if res.(*Distance).value != 2000 {
+		t.Errorf("1000 meter and 1 kilometer should be equal to 2000 meter")
 	}
 }

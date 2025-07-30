@@ -5,6 +5,10 @@ import (
 	"math"
 )
 
+type Adder interface {
+	Add(measurement Adder) (Adder, error)
+}
+
 type TemperatureUnit struct {
 	name                 string
 	baseConversionFactor float64
@@ -100,15 +104,17 @@ func (t *Temperature) inBase() *Temperature {
 	return &Temperature{value: valueInCelsius, unit: Celsius}
 }
 
-func (d1 *Distance) Add(d2 *Distance) *Distance {
+func (d1 *Distance) Add(m Adder) (Adder, error) {
 	m1 := d1.unit.toMeter(d1.value)
-	m2 := d2.unit.toMeter(d2.value)
+	d2, flag := m.(*Distance)
+	if flag == true {
+		m2 := d2.unit.toMeter(d2.value)
+		baseResult := m1 + m2
+		resultInSelfUnit := baseResult / d1.unit.baseConversionFactor
+		return &Distance{value: resultInSelfUnit, unit: d1.unit}, nil
+	}
+	return nil, errors.New("adder is only implemented by *Distance")
 
-	baseResult := m1 + m2
-
-	resultInSelfUnit := baseResult / d1.unit.baseConversionFactor
-
-	return &Distance{value: resultInSelfUnit, unit: d1.unit}
 }
 
 func (w1 *Weight) Add(w2 *Weight) *Weight {
