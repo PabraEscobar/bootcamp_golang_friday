@@ -28,12 +28,9 @@ var (
 	Fahrenheit = TemperatureUnit{name: "kelvin", baseConversionFactor: 1, baseAdditionFactor: math.Round(-32 * (math.Round(float64(5.0 / 9.0))))}
 )
 var (
-	meter      = Unit{name: "meter", baseConversionFactor: 1}
-	kilometer  = Unit{name: "kilometer", baseConversionFactor: 1000}
-	centimeter = Unit{name: "centimeter", baseConversionFactor: 0.01}
-	gram       = Unit{name: "gram", baseConversionFactor: 1}
-	kilogram   = Unit{name: "kilogram", baseConversionFactor: 1000}
-	milligram  = Unit{name: "milligram", baseConversionFactor: 0.001}
+	gram      = Unit{name: "gram", baseConversionFactor: 1}
+	kilogram  = Unit{name: "kilogram", baseConversionFactor: 1000}
+	milligram = Unit{name: "milligram", baseConversionFactor: 0.001}
 )
 
 type measurement struct {
@@ -48,7 +45,7 @@ type Temperature struct {
 
 type Distance struct {
 	value float64
-	unit  Unit
+	unit  DistanceUnit
 }
 
 type Weight struct {
@@ -68,14 +65,12 @@ func NewTemperature(value float64, unit TemperatureUnit) (*Temperature, error) {
 
 }
 
-func NewDistance(value float64, unit Unit) (*Distance, error) { //creating new Distance struct
+func NewDistance(value float64, unit DistanceUnit) (*Distance, error) { //creating new Distance struct
 	if value < 0 {
 		return nil, errors.New("distance cannot be negative")
 	}
-	if unit == meter || unit == kilometer || unit == centimeter {
-		return &Distance{value: value, unit: unit}, nil
-	}
-	return nil, errors.New("invalid unit")
+	return &Distance{value: value, unit: unit}, nil
+
 }
 
 func NewWeight(value float64, unit Unit) (*Weight, error) { //creating new Weight struct
