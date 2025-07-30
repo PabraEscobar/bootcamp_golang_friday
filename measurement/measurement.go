@@ -38,8 +38,8 @@ type measurement struct {
 }
 
 type Temperature struct {
-	measurement
-	baseAdditionFactor float64
+	value float64
+	unit  TemperatureUnit
 }
 
 type Distance struct {
@@ -58,7 +58,7 @@ func NewTemperature(value float64, unit TemperatureUnit) (*Temperature, error) {
 	if celsiusValue < (-273.15) {
 		return nil, errors.New("Temperarture cannot be creted with this value")
 	}
-	return &Temperature{measurement{value: value, unit: unit.Unit}, unit.baseAdditionFactor}, nil
+	return &Temperature{value: value, unit: unit}, nil
 
 }
 
@@ -98,7 +98,8 @@ func (w1 *Weight) equals(w2 *Weight) bool { //Checking equality between the wegi
 }
 
 func (t *Temperature) inBase() *Temperature {
-	return &Temperature{measurement: measurement{value: (t.measurement.value * t.measurement.unit.baseConversionFactor) + t.baseAdditionFactor}}
+	valueInCelsius := t.unit.toCelsius(t.value)
+	return &Temperature{value: valueInCelsius, unit: Celsius}
 }
 
 func (d1 *Distance) Add(d2 *Distance) *Distance {
