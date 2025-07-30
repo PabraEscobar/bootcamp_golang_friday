@@ -56,6 +56,9 @@ type Weight struct {
 func (u *TemperatureUnit) toCelsius(value float64) float64 {
 	return value*u.baseConversionFactor + u.baseAdditionFactor
 }
+func (d *DistanceUnit) toMeter(value float64) float64 {
+	return value * d.baseConversionFactor
+}
 func NewTemperature(value float64, unit TemperatureUnit) (*Temperature, error) {
 	celsiusValue := unit.toCelsius(value)
 	if celsiusValue < (-273.15) {

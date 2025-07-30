@@ -277,3 +277,17 @@ func TestCannotCreateTempBelowNegativeLimitOfCelsius(t *testing.T) {
 		t.Errorf("Must not create temperature below -273.15 celsius")
 	}
 }
+
+func TestKilometerToMeter(t *testing.T) {
+	oneKilometer, _ := NewDistance(1, Kilometer)
+	if oneKilometer.unit.toMeter(oneKilometer.value) != 1000 {
+		t.Errorf("one Kilometer should be equal to 1000 meter")
+	}
+}
+
+func TestCentimeterToMeter(t *testing.T) {
+	hundredCentimeter, _ := NewDistance(100, Centimeter)
+	if hundredCentimeter.unit.toMeter(hundredCentimeter.value) != 1 {
+		t.Errorf("hundred centimeter should be equal to 1 meter")
+	}
+}
