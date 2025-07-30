@@ -5,10 +5,6 @@ import (
 	"math"
 )
 
-type Unit struct {
-	name                 string
-	baseConversionFactor float64
-}
 type TemperatureUnit struct {
 	name                 string
 	baseConversionFactor float64
@@ -33,11 +29,6 @@ var (
 	Gram       = WeightUnit{name: "gram", baseConversionFactor: 1}
 	Kilogram   = WeightUnit{name: "kilogram", baseConversionFactor: 1000}
 	Milligram  = WeightUnit{name: "milligram", baseConversionFactor: 0.001}
-)
-var (
-	gram      = Unit{name: "gram", baseConversionFactor: 1}
-	kilogram  = Unit{name: "kilogram", baseConversionFactor: 1000}
-	milligram = Unit{name: "milligram", baseConversionFactor: 0.001}
 )
 
 type Temperature struct {
