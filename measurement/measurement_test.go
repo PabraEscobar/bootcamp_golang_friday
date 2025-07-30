@@ -291,3 +291,17 @@ func TestCentimeterToMeter(t *testing.T) {
 		t.Errorf("hundred centimeter should be equal to 1 meter")
 	}
 }
+
+func TestKilogramToGram(t *testing.T) {
+	oneKilogram, _ := NewWeight(1, Kilogram)
+	if oneKilogram.unit.toGram(oneKilogram.value) != 1000 {
+		t.Errorf("one kilogram should be equal to 1000 gram")
+	}
+}
+
+func TestMilligramToGram(t *testing.T) {
+	thousandMilligram, _ := NewWeight(1000, Milligram)
+	if thousandMilligram.unit.toGram(thousandMilligram.value) != 1 {
+		t.Errorf("thousand milligram should be equal to 1 gram")
+	}
+}

@@ -52,6 +52,9 @@ func (u *TemperatureUnit) toCelsius(value float64) float64 {
 func (d *DistanceUnit) toMeter(value float64) float64 {
 	return value * d.baseConversionFactor
 }
+func (w *WeightUnit) toGram(value float64) float64 {
+	return value * w.baseConversionFactor
+}
 func NewTemperature(value float64, unit TemperatureUnit) (*Temperature, error) {
 	celsiusValue := unit.toCelsius(value)
 	if celsiusValue < (-273.15) {
