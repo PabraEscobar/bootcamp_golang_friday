@@ -90,9 +90,9 @@ func (d1 *Distance) equals(d2 *Distance) bool { //Checking equality between the 
 	return valueOfd1 == valueOfd2
 }
 func (w1 *Weight) equals(w2 *Weight) bool { //Checking equality between the wegihts
-	w1 = &Weight{value: (w1.value * w1.unit.baseConversionFactor)}
-	w2 = &Weight{value: (w2.value * w2.unit.baseConversionFactor)}
-	return w1.value == w2.value
+	valueOfw1 := w1.unit.toGram(w1.value)
+	valueOfW2 := w2.unit.toGram(w2.value)
+	return valueOfw1 == valueOfW2
 }
 
 func (t *Temperature) inBase() *Temperature {
@@ -112,11 +112,11 @@ func (d1 *Distance) Add(d2 *Distance) *Distance {
 }
 
 func (w1 *Weight) Add(w2 *Weight) *Weight {
-	d1 := w1
-	d2 := w2
-	baseResult := (d1.value * d1.unit.baseConversionFactor) + (d2.value * d2.unit.baseConversionFactor)
+	d1 := w1.unit.toGram(w1.value)
+	d2 := w2.unit.toGram(w2.value)
+	baseResult := d1 + d2
 
-	resultInSelfUnit := baseResult / d1.unit.baseConversionFactor
+	resultInSelfUnit := baseResult / w1.unit.baseConversionFactor
 
-	return &Weight{value: resultInSelfUnit, unit: d1.unit}
+	return &Weight{value: resultInSelfUnit, unit: w1.unit}
 }
