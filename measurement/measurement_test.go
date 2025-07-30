@@ -109,7 +109,7 @@ func TestAddDistance(t *testing.T) {
 	d3 := d1.Add(d2)
 	expectedDistance := Distance{measurement{value: 2000, unit: meter}}
 	if d3.equals(&expectedDistance) != true {
-		t.Errorf("Wanted  %v but got  %v", expectedDistance.toString(), (*d3).toString())
+		t.Errorf("Wanted  %v but got  %v", expectedDistance.measurement.value, d3.measurement.value)
 
 	}
 
@@ -121,7 +121,7 @@ func TestAddDistance1(t *testing.T) {
 	d3 := d1.Add(d2)
 	expectedDistance := Distance{measurement{value: 1100, unit: meter}}
 	if d3.equals(&expectedDistance) != true {
-		t.Errorf("Wanted  %v but got  %v", expectedDistance.toString(), (*d3).toString())
+		t.Errorf("Wanted  %v but got  %v", expectedDistance.measurement.value, d3.measurement.value)
 	}
 
 }
@@ -132,7 +132,7 @@ func TestAddDistance2(t *testing.T) {
 	d3 := d1.Add(d2)
 	expectedDistance := Distance{measurement{value: 100.001, unit: kilometer}}
 	if d3.equals(&expectedDistance) != true {
-		t.Errorf("Wanted  %v but got  %v", expectedDistance.toString(), (*d3).toString())
+		t.Errorf("Wanted  %v but got  %v", expectedDistance.measurement.value, d3.measurement.value)
 	}
 
 }
@@ -195,7 +195,7 @@ func TestAddWeight(t *testing.T) {
 	w3 := w1.Add(w2)
 	expectedWeight := Weight{measurement{value: 1000.001, unit: kilogram}}
 	if w3.equals(&expectedWeight) != true {
-		t.Errorf("Wanted  %v but got  %v", expectedWeight.toString(), (*w3).toString())
+		t.Errorf("Wanted  %v but got  %v", expectedWeight.measurement.value, w3.measurement.value)
 
 	}
 
@@ -207,7 +207,7 @@ func TestAddWeight1(t *testing.T) {
 	w3 := w1.Add(w2)
 	expectedWeight := Weight{measurement{value: 11, unit: kilogram}}
 	if w3.equals(&expectedWeight) != true {
-		t.Errorf("Wanted  %v but got  %v", expectedWeight.toString(), (*w3).toString())
+		t.Errorf("Wanted  %v but got  %v", expectedWeight.measurement.value, w3.measurement.value)
 
 	}
 
@@ -219,7 +219,7 @@ func TestAddWeight2(t *testing.T) {
 	w3 := w1.Add(w2)
 	expectedWeight := Weight{measurement{value: 2000, unit: gram}}
 	if w3.equals(&expectedWeight) != true {
-		t.Errorf("Wanted  %v but got  %v", expectedWeight.toString(), (*w3).toString())
+		t.Errorf("Wanted  %v but got  %v", expectedWeight.measurement.value, w3.measurement.value)
 
 	}
 }

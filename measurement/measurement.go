@@ -2,7 +2,6 @@ package measurement
 
 import (
 	"errors"
-	"fmt"
 	"math"
 )
 
@@ -51,9 +50,6 @@ type Weight struct {
 	measurement
 }
 
-func (d1 measurement) toString() string { //for displaying structure in a readable format
-	return fmt.Sprintf("value %f %v", d1.value, d1.unit)
-}
 func (u *TemperatureUnit) toCelsius(value float64) float64 {
 	return value*u.baseConversionFactor + u.baseAdditionFactor
 }
