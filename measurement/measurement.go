@@ -8,7 +8,6 @@ import (
 type Unit struct {
 	name                 string
 	baseConversionFactor float64
-	baseAdditionFactor   float64
 }
 type TemperatureUnit struct {
 	Unit
@@ -21,15 +20,15 @@ var (
 	Fahrenheit = TemperatureUnit{Unit: fahrenheit, baseAdditionFactor: math.Round(-32 * (math.Round(float64(5.0 / 9.0))))}
 )
 var (
-	meter      = Unit{name: "meter", baseConversionFactor: 1, baseAdditionFactor: 0}
-	kilometer  = Unit{name: "kilometer", baseConversionFactor: 1000, baseAdditionFactor: 0}
-	centimeter = Unit{name: "centimeter", baseConversionFactor: 0.01, baseAdditionFactor: 0}
-	gram       = Unit{name: "gram", baseConversionFactor: 1, baseAdditionFactor: 0}
-	kilogram   = Unit{name: "kilogram", baseConversionFactor: 1000, baseAdditionFactor: 0}
-	milligram  = Unit{name: "milligram", baseConversionFactor: 0.001, baseAdditionFactor: 0}
-	celsius    = Unit{name: "celsius", baseConversionFactor: 1, baseAdditionFactor: 0}
-	fahrenheit = Unit{name: "fahrenheit", baseConversionFactor: math.Round(float64(5.0 / 9.0)), baseAdditionFactor: math.Round(-32 * (math.Round(float64(5.0 / 9.0))))}
-	kelvin     = Unit{name: "kelvin", baseConversionFactor: 1, baseAdditionFactor: -273.15}
+	meter      = Unit{name: "meter", baseConversionFactor: 1}
+	kilometer  = Unit{name: "kilometer", baseConversionFactor: 1000}
+	centimeter = Unit{name: "centimeter", baseConversionFactor: 0.01}
+	gram       = Unit{name: "gram", baseConversionFactor: 1}
+	kilogram   = Unit{name: "kilogram", baseConversionFactor: 1000}
+	milligram  = Unit{name: "milligram", baseConversionFactor: 0.001}
+	celsius    = Unit{name: "celsius", baseConversionFactor: 1}
+	fahrenheit = Unit{name: "fahrenheit", baseConversionFactor: math.Round(float64(5.0 / 9.0))}
+	kelvin     = Unit{name: "kelvin", baseConversionFactor: 1}
 )
 
 type measurement struct {
@@ -87,13 +86,13 @@ func (t1 *Temperature) equals(t2 *Temperature) bool {
 }
 
 func (d1 *Distance) equals(d2 *Distance) bool { //Checking equality between the distances
-	d1 = &Distance{measurement{value: ((d1.value * d1.unit.baseConversionFactor) + d1.unit.baseAdditionFactor)}}
-	d2 = &Distance{measurement{value: ((d2.value * d2.unit.baseConversionFactor) + d2.unit.baseAdditionFactor)}}
+	d1 = &Distance{measurement{value: (d1.value * d1.unit.baseConversionFactor)}}
+	d2 = &Distance{measurement{value: (d2.value * d2.unit.baseConversionFactor)}}
 	return d1.value == d2.value
 }
 func (w1 *Weight) equals(w2 *Weight) bool { //Checking equality between the wegihts
-	w1 = &Weight{measurement{value: ((w1.value * w1.unit.baseConversionFactor) + w1.unit.baseAdditionFactor)}}
-	w2 = &Weight{measurement{value: ((w2.value * w2.unit.baseConversionFactor) + w2.unit.baseAdditionFactor)}}
+	w1 = &Weight{measurement{value: (w1.value * w1.unit.baseConversionFactor)}}
+	w2 = &Weight{measurement{value: (w2.value * w2.unit.baseConversionFactor)}}
 	return w1.value == w2.value
 }
 
@@ -106,7 +105,7 @@ func (d1 *Distance) Add(d2 *Distance) *Distance {
 	m1 := d1.measurement
 	m2 := d2.measurement
 
-	baseResult := (m1.value * m1.unit.baseConversionFactor) + m1.unit.baseAdditionFactor + (m2.value * m2.unit.baseConversionFactor) + m2.unit.baseAdditionFactor
+	baseResult := (m1.value * m1.unit.baseConversionFactor) + (m2.value * m2.unit.baseConversionFactor)
 
 	resultInSelfUnit := baseResult / m1.unit.baseConversionFactor
 
@@ -116,7 +115,7 @@ func (d1 *Distance) Add(d2 *Distance) *Distance {
 func (w1 *Weight) Add(w2 *Weight) *Weight {
 	d1 := w1.measurement
 	d2 := w2.measurement
-	baseResult := (d1.value * d1.unit.baseConversionFactor) + d1.unit.baseAdditionFactor + (d2.value * d2.unit.baseConversionFactor) + d2.unit.baseAdditionFactor
+	baseResult := (d1.value * d1.unit.baseConversionFactor) + (d2.value * d2.unit.baseConversionFactor)
 
 	resultInSelfUnit := baseResult / d1.unit.baseConversionFactor
 
