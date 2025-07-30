@@ -10,14 +10,15 @@ type Unit struct {
 	baseConversionFactor float64
 }
 type TemperatureUnit struct {
-	Unit
-	baseAdditionFactor float64
+	name                 string
+	baseConversionFactor float64
+	baseAdditionFactor   float64
 }
 
 var (
-	Celsius    = TemperatureUnit{Unit: celsius, baseAdditionFactor: 0}
-	Kelvin     = TemperatureUnit{Unit: kelvin, baseAdditionFactor: -273.15}
-	Fahrenheit = TemperatureUnit{Unit: fahrenheit, baseAdditionFactor: math.Round(-32 * (math.Round(float64(5.0 / 9.0))))}
+	Celsius    = TemperatureUnit{name: "celsius", baseConversionFactor: 1, baseAdditionFactor: 0}
+	Kelvin     = TemperatureUnit{name: "fahrenheit", baseConversionFactor: math.Round(float64(5.0 / 9.0)), baseAdditionFactor: -273.15}
+	Fahrenheit = TemperatureUnit{name: "kelvin", baseConversionFactor: 1, baseAdditionFactor: math.Round(-32 * (math.Round(float64(5.0 / 9.0))))}
 )
 var (
 	meter      = Unit{name: "meter", baseConversionFactor: 1}
@@ -26,9 +27,6 @@ var (
 	gram       = Unit{name: "gram", baseConversionFactor: 1}
 	kilogram   = Unit{name: "kilogram", baseConversionFactor: 1000}
 	milligram  = Unit{name: "milligram", baseConversionFactor: 0.001}
-	celsius    = Unit{name: "celsius", baseConversionFactor: 1}
-	fahrenheit = Unit{name: "fahrenheit", baseConversionFactor: math.Round(float64(5.0 / 9.0))}
-	kelvin     = Unit{name: "kelvin", baseConversionFactor: 1}
 )
 
 type measurement struct {
