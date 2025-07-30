@@ -33,11 +33,6 @@ var (
 	milligram = Unit{name: "milligram", baseConversionFactor: 0.001}
 )
 
-type measurement struct {
-	value float64
-	unit  Unit
-}
-
 type Temperature struct {
 	value float64
 	unit  TemperatureUnit
