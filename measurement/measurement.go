@@ -40,7 +40,8 @@ type Temperature struct {
 }
 
 type Distance struct {
-	measurement
+	value float64
+	unit  Unit
 }
 
 type Weight struct {
@@ -64,7 +65,7 @@ func NewDistance(value float64, unit Unit) (*Distance, error) { //creating new D
 		return nil, errors.New("distance cannot be negative")
 	}
 	if unit == meter || unit == kilometer || unit == centimeter {
-		return &Distance{measurement{value: value, unit: unit}}, nil
+		return &Distance{value: value, unit: unit}, nil
 	}
 	return nil, errors.New("invalid unit")
 }
@@ -84,8 +85,8 @@ func (t1 *Temperature) equals(t2 *Temperature) bool {
 }
 
 func (d1 *Distance) equals(d2 *Distance) bool { //Checking equality between the distances
-	d1 = &Distance{measurement{value: (d1.value * d1.unit.baseConversionFactor)}}
-	d2 = &Distance{measurement{value: (d2.value * d2.unit.baseConversionFactor)}}
+	d1 = &Distance{value: (d1.value * d1.unit.baseConversionFactor)}
+	d2 = &Distance{value: (d2.value * d2.unit.baseConversionFactor)}
 	return d1.value == d2.value
 }
 func (w1 *Weight) equals(w2 *Weight) bool { //Checking equality between the wegihts
@@ -100,14 +101,14 @@ func (t *Temperature) inBase() *Temperature {
 }
 
 func (d1 *Distance) Add(d2 *Distance) *Distance {
-	m1 := d1.measurement
-	m2 := d2.measurement
+	m1 := d1
+	m2 := d2
 
 	baseResult := (m1.value * m1.unit.baseConversionFactor) + (m2.value * m2.unit.baseConversionFactor)
 
 	resultInSelfUnit := baseResult / m1.unit.baseConversionFactor
 
-	return &Distance{measurement{value: resultInSelfUnit, unit: m1.unit}}
+	return &Distance{value: resultInSelfUnit, unit: m1.unit}
 }
 
 func (w1 *Weight) Add(w2 *Weight) *Weight {

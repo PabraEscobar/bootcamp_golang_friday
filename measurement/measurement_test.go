@@ -107,9 +107,9 @@ func TestAddDistance(t *testing.T) {
 	d1, _ := NewDistance(1000, meter)
 	d2, _ := NewDistance(1000, meter)
 	d3 := d1.Add(d2)
-	expectedDistance := Distance{measurement{value: 2000, unit: meter}}
+	expectedDistance := Distance{value: 2000, unit: meter}
 	if d3.equals(&expectedDistance) != true {
-		t.Errorf("Wanted  %v but got  %v", expectedDistance.measurement.value, d3.measurement.value)
+		t.Errorf("Wanted  %v but got  %v", expectedDistance.value, d3.value)
 
 	}
 
@@ -119,9 +119,9 @@ func TestAddDistance1(t *testing.T) {
 	d1, _ := NewDistance(100, meter)
 	d2, _ := NewDistance(1, kilometer)
 	d3 := d1.Add(d2)
-	expectedDistance := Distance{measurement{value: 1100, unit: meter}}
+	expectedDistance := Distance{value: 1100, unit: meter}
 	if d3.equals(&expectedDistance) != true {
-		t.Errorf("Wanted  %v but got  %v", expectedDistance.measurement.value, d3.measurement.value)
+		t.Errorf("Wanted  %v but got  %v", expectedDistance.value, d3.value)
 	}
 
 }
@@ -130,9 +130,9 @@ func TestAddDistance2(t *testing.T) {
 	d1, _ := NewDistance(100, kilometer)
 	d2, _ := NewDistance(1, meter)
 	d3 := d1.Add(d2)
-	expectedDistance := Distance{measurement{value: 100.001, unit: kilometer}}
+	expectedDistance := Distance{value: 100.001, unit: kilometer}
 	if d3.equals(&expectedDistance) != true {
-		t.Errorf("Wanted  %v but got  %v", expectedDistance.measurement.value, d3.measurement.value)
+		t.Errorf("Wanted  %v but got  %v", expectedDistance.value, d3.value)
 	}
 
 }
