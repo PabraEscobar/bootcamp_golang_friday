@@ -14,8 +14,15 @@ type TemperatureUnit struct {
 	baseConversionFactor float64
 	baseAdditionFactor   float64
 }
+type DistanceUnit struct {
+	name                 string
+	baseConversionFactor float64
+}
 
 var (
+	Meter      = DistanceUnit{name: "meter", baseConversionFactor: 1}
+	Kilometer  = DistanceUnit{name: "kilometer", baseConversionFactor: 1000}
+	Centimeter = DistanceUnit{name: "centimeter", baseConversionFactor: 0.01}
 	Celsius    = TemperatureUnit{name: "celsius", baseConversionFactor: 1, baseAdditionFactor: 0}
 	Kelvin     = TemperatureUnit{name: "fahrenheit", baseConversionFactor: math.Round(float64(5.0 / 9.0)), baseAdditionFactor: -273.15}
 	Fahrenheit = TemperatureUnit{name: "kelvin", baseConversionFactor: 1, baseAdditionFactor: math.Round(-32 * (math.Round(float64(5.0 / 9.0))))}
