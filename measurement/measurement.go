@@ -113,16 +113,18 @@ func (d1 *Distance) Add(m Adder) (Adder, error) {
 		resultInSelfUnit := baseResult / d1.unit.baseConversionFactor
 		return &Distance{value: resultInSelfUnit, unit: d1.unit}, nil
 	}
-	return nil, errors.New("adder is only implemented by *Distance")
+	return nil, errors.New("want adder of type *Distance")
 
 }
 
-func (w1 *Weight) Add(w2 *Weight) *Weight {
+func (w1 *Weight) Add(m Adder) (Adder, error) {
 	d1 := w1.unit.toGram(w1.value)
-	d2 := w2.unit.toGram(w2.value)
-	baseResult := d1 + d2
-
-	resultInSelfUnit := baseResult / w1.unit.baseConversionFactor
-
-	return &Weight{value: resultInSelfUnit, unit: w1.unit}
+	w2, flag := m.(*Weight)
+	if flag == true {
+		d2 := w2.unit.toGram(w2.value)
+		baseResult := d1 + d2
+		resultInSelfUnit := baseResult / w1.unit.baseConversionFactor
+		return &Weight{value: resultInSelfUnit, unit: w1.unit}, nil
+	}
+	return nil, errors.New("want adder of type *Weight")
 }

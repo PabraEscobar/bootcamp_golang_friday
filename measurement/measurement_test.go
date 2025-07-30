@@ -155,41 +155,6 @@ func TestEqualityforKiloGrams(t *testing.T) {
 	}
 }
 
-func TestAddWeight(t *testing.T) {
-	w1, _ := NewWeight(1000, Kilogram)
-	w2, _ := NewWeight(1, Gram)
-	w3 := w1.Add(w2)
-	expectedWeight := Weight{value: 1000.001, unit: Kilogram}
-	if w3.equals(&expectedWeight) != true {
-		t.Errorf("Wanted  %v but got  %v", expectedWeight.value, w3.value)
-
-	}
-
-}
-
-func TestAddWeight1(t *testing.T) {
-	w1, _ := NewWeight(10, Kilogram)
-	w2, _ := NewWeight(1000000, Milligram)
-	w3 := w1.Add(w2)
-	expectedWeight := Weight{value: 11, unit: Kilogram}
-	if w3.equals(&expectedWeight) != true {
-		t.Errorf("Wanted  %v but got  %v", expectedWeight.value, w3.value)
-
-	}
-
-}
-
-func TestAddWeight2(t *testing.T) {
-	w1, _ := NewWeight(1000, Gram)
-	w2, _ := NewWeight(1000000, Milligram)
-	w3 := w1.Add(w2)
-	expectedWeight := Weight{value: 2000, unit: Gram}
-	if w3.equals(&expectedWeight) != true {
-		t.Errorf("Wanted  %v but got  %v", expectedWeight.value, w3.value)
-
-	}
-}
-
 func TestTemperatureCreationWithCelsius(t *testing.T) {
 	_, err := NewTemperature(32, Celsius)
 	if err != nil {
@@ -293,5 +258,35 @@ func TestAdd1000MeterWithOneKiloMeterWithAdderInterface(t *testing.T) {
 	}
 	if res.(*Distance).value != 2000 {
 		t.Errorf("1000 meter and 1 kilometer should be equal to 2000 meter")
+	}
+}
+
+func TestAdd1000KilogramWithOneGramUsingAdder(t *testing.T) {
+	thousandKilogram, _ := NewWeight(1000, Kilogram)
+	oneGram, _ := NewWeight(1, Gram)
+	var a Adder
+	a = oneGram
+	res, err := thousandKilogram.Add(a)
+	result := res.(*Weight)
+	if err != nil {
+		t.Errorf("want %v , get %v ", 1000.001, result.value)
+	}
+	if result.value != 1000.001 {
+		t.Errorf("result should be equal to 1001 kilogram")
+	}
+}
+
+func TestAdd1000GramWithOneKiloGramUsingAdder(t *testing.T) {
+	thousandGram, _ := NewWeight(1000, Gram)
+	oneKilogram, _ := NewWeight(1, Kilogram)
+	var a Adder
+	a = oneKilogram
+	res, err := thousandGram.Add(a)
+	result := res.(*Weight)
+	if err != nil {
+		t.Errorf("want %v , get %v ", 2000, result.value)
+	}
+	if result.value != 2000 {
+		t.Errorf("result should be equal to 2000 Gram")
 	}
 }
