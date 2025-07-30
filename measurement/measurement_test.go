@@ -193,9 +193,9 @@ func TestAddWeight(t *testing.T) {
 	w1, _ := NewWeight(1000, kilogram)
 	w2, _ := NewWeight(1, gram)
 	w3 := w1.Add(w2)
-	expectedWeight := Weight{measurement{value: 1000.001, unit: kilogram}}
+	expectedWeight := Weight{value: 1000.001, unit: kilogram}
 	if w3.equals(&expectedWeight) != true {
-		t.Errorf("Wanted  %v but got  %v", expectedWeight.measurement.value, w3.measurement.value)
+		t.Errorf("Wanted  %v but got  %v", expectedWeight.value, w3.value)
 
 	}
 
@@ -205,9 +205,9 @@ func TestAddWeight1(t *testing.T) {
 	w1, _ := NewWeight(10, kilogram)
 	w2, _ := NewWeight(1000000, milligram)
 	w3 := w1.Add(w2)
-	expectedWeight := Weight{measurement{value: 11, unit: kilogram}}
+	expectedWeight := Weight{value: 11, unit: kilogram}
 	if w3.equals(&expectedWeight) != true {
-		t.Errorf("Wanted  %v but got  %v", expectedWeight.measurement.value, w3.measurement.value)
+		t.Errorf("Wanted  %v but got  %v", expectedWeight.value, w3.value)
 
 	}
 
@@ -217,9 +217,9 @@ func TestAddWeight2(t *testing.T) {
 	w1, _ := NewWeight(1000, gram)
 	w2, _ := NewWeight(1000000, milligram)
 	w3 := w1.Add(w2)
-	expectedWeight := Weight{measurement{value: 2000, unit: gram}}
+	expectedWeight := Weight{value: 2000, unit: gram}
 	if w3.equals(&expectedWeight) != true {
-		t.Errorf("Wanted  %v but got  %v", expectedWeight.measurement.value, w3.measurement.value)
+		t.Errorf("Wanted  %v but got  %v", expectedWeight.value, w3.value)
 
 	}
 }

@@ -45,7 +45,8 @@ type Distance struct {
 }
 
 type Weight struct {
-	measurement
+	value float64
+	unit  Unit
 }
 
 func (u *TemperatureUnit) toCelsius(value float64) float64 {
@@ -75,7 +76,7 @@ func NewWeight(value float64, unit Unit) (*Weight, error) { //creating new Weigh
 		return nil, errors.New("distance cannot be negative")
 	}
 	if unit == gram || unit == kilogram || unit == milligram {
-		return &Weight{measurement{value: value, unit: unit}}, nil
+		return &Weight{value: value, unit: unit}, nil
 	}
 	return nil, errors.New("invalid unit")
 }
@@ -90,8 +91,8 @@ func (d1 *Distance) equals(d2 *Distance) bool { //Checking equality between the 
 	return d1.value == d2.value
 }
 func (w1 *Weight) equals(w2 *Weight) bool { //Checking equality between the wegihts
-	w1 = &Weight{measurement{value: (w1.value * w1.unit.baseConversionFactor)}}
-	w2 = &Weight{measurement{value: (w2.value * w2.unit.baseConversionFactor)}}
+	w1 = &Weight{value: (w1.value * w1.unit.baseConversionFactor)}
+	w2 = &Weight{value: (w2.value * w2.unit.baseConversionFactor)}
 	return w1.value == w2.value
 }
 
@@ -112,11 +113,11 @@ func (d1 *Distance) Add(d2 *Distance) *Distance {
 }
 
 func (w1 *Weight) Add(w2 *Weight) *Weight {
-	d1 := w1.measurement
-	d2 := w2.measurement
+	d1 := w1
+	d2 := w2
 	baseResult := (d1.value * d1.unit.baseConversionFactor) + (d2.value * d2.unit.baseConversionFactor)
 
 	resultInSelfUnit := baseResult / d1.unit.baseConversionFactor
 
-	return &Weight{measurement{value: resultInSelfUnit, unit: d1.unit}}
+	return &Weight{value: resultInSelfUnit, unit: d1.unit}
 }
