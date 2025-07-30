@@ -5,9 +5,6 @@ import (
 	"fmt"
 	"math"
 )
-type adder[T any] interface{
-	Add(t T) T
-}
 
 type Unit struct {
 	name                 string
