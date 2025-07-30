@@ -52,7 +52,7 @@ type Distance struct {
 
 type Weight struct {
 	value float64
-	unit  Unit
+	unit  WeightUnit
 }
 
 func (u *TemperatureUnit) toCelsius(value float64) float64 {
@@ -78,14 +78,12 @@ func NewDistance(value float64, unit DistanceUnit) (*Distance, error) { //creati
 
 }
 
-func NewWeight(value float64, unit Unit) (*Weight, error) { //creating new Weight struct
+func NewWeight(value float64, unit WeightUnit) (*Weight, error) { //creating new Weight struct
 	if value < 0 {
 		return nil, errors.New("distance cannot be negative")
 	}
-	if unit == gram || unit == kilogram || unit == milligram {
-		return &Weight{value: value, unit: unit}, nil
-	}
-	return nil, errors.New("invalid unit")
+	return &Weight{value: value, unit: unit}, nil
+
 }
 
 func (t1 *Temperature) equals(t2 *Temperature) bool {

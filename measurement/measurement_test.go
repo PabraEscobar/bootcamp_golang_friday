@@ -146,15 +146,15 @@ func TestNewDistance(t *testing.T) {
 }
 
 func TestWeightCreation(t *testing.T) {
-	_, err := NewWeight(1, kilogram)
+	_, err := NewWeight(1, Kilogram)
 	if err != nil {
 		t.Errorf("Weight Not created")
 	}
 }
 
 func TestEqualityforgrams(t *testing.T) {
-	w1, _ := NewWeight(1000, gram)
-	w2, _ := NewWeight(1000, gram)
+	w1, _ := NewWeight(1000, Gram)
+	w2, _ := NewWeight(1000, Gram)
 
 	if w1.equals(w2) != true {
 		t.Errorf("unequal distance")
@@ -162,8 +162,8 @@ func TestEqualityforgrams(t *testing.T) {
 }
 
 func TestEqualityforGramsAndKilograms(t *testing.T) {
-	w1, _ := NewWeight(1000, gram)
-	w2, _ := NewWeight(1, kilogram)
+	w1, _ := NewWeight(1000, Gram)
+	w2, _ := NewWeight(1, Kilogram)
 
 	if w1.equals(w2) != true {
 		t.Errorf("unequal distance")
@@ -172,8 +172,8 @@ func TestEqualityforGramsAndKilograms(t *testing.T) {
 }
 
 func TestEqualitForKilogramsAndGrams(t *testing.T) {
-	w1, _ := NewWeight(1, kilogram)
-	w2, _ := NewWeight(1000, gram)
+	w1, _ := NewWeight(1, Kilogram)
+	w2, _ := NewWeight(1000, Gram)
 
 	if w1.equals(w2) != true {
 		t.Errorf("unequal distance")
@@ -181,8 +181,8 @@ func TestEqualitForKilogramsAndGrams(t *testing.T) {
 }
 
 func TestEqualityforKiloGrams(t *testing.T) {
-	w1, _ := NewWeight(1000, kilogram)
-	w2, _ := NewWeight(1000, kilogram)
+	w1, _ := NewWeight(1000, Kilogram)
+	w2, _ := NewWeight(1000, Kilogram)
 
 	if w1.equals(w2) != true {
 		t.Errorf("unequal distance")
@@ -190,10 +190,10 @@ func TestEqualityforKiloGrams(t *testing.T) {
 }
 
 func TestAddWeight(t *testing.T) {
-	w1, _ := NewWeight(1000, kilogram)
-	w2, _ := NewWeight(1, gram)
+	w1, _ := NewWeight(1000, Kilogram)
+	w2, _ := NewWeight(1, Gram)
 	w3 := w1.Add(w2)
-	expectedWeight := Weight{value: 1000.001, unit: kilogram}
+	expectedWeight := Weight{value: 1000.001, unit: Kilogram}
 	if w3.equals(&expectedWeight) != true {
 		t.Errorf("Wanted  %v but got  %v", expectedWeight.value, w3.value)
 
@@ -202,10 +202,10 @@ func TestAddWeight(t *testing.T) {
 }
 
 func TestAddWeight1(t *testing.T) {
-	w1, _ := NewWeight(10, kilogram)
-	w2, _ := NewWeight(1000000, milligram)
+	w1, _ := NewWeight(10, Kilogram)
+	w2, _ := NewWeight(1000000, Milligram)
 	w3 := w1.Add(w2)
-	expectedWeight := Weight{value: 11, unit: kilogram}
+	expectedWeight := Weight{value: 11, unit: Kilogram}
 	if w3.equals(&expectedWeight) != true {
 		t.Errorf("Wanted  %v but got  %v", expectedWeight.value, w3.value)
 
@@ -214,10 +214,10 @@ func TestAddWeight1(t *testing.T) {
 }
 
 func TestAddWeight2(t *testing.T) {
-	w1, _ := NewWeight(1000, gram)
-	w2, _ := NewWeight(1000000, milligram)
+	w1, _ := NewWeight(1000, Gram)
+	w2, _ := NewWeight(1000000, Milligram)
 	w3 := w1.Add(w2)
-	expectedWeight := Weight{value: 2000, unit: gram}
+	expectedWeight := Weight{value: 2000, unit: Gram}
 	if w3.equals(&expectedWeight) != true {
 		t.Errorf("Wanted  %v but got  %v", expectedWeight.value, w3.value)
 
