@@ -87,15 +87,14 @@ func (t1 *Temperature) equals(t2 *Temperature) bool {
 }
 
 func (d1 *Distance) equals(d2 *Distance) bool { //Checking equality between the distances
-	return d1.measurement.equals(&d2.measurement)
+	d1 = &Distance{measurement{value: ((d1.value * d1.unit.baseConversionFactor) + d1.unit.baseAdditionFactor)}}
+	d2 = &Distance{measurement{value: ((d2.value * d2.unit.baseConversionFactor) + d2.unit.baseAdditionFactor)}}
+	return d1.value == d2.value
 }
 func (w1 *Weight) equals(w2 *Weight) bool { //Checking equality between the wegihts
-	return w1.measurement.equals(&w2.measurement)
-}
-func (d1 *measurement) equals(d2 *measurement) bool { //Checking equality between the measurement
-	d1 = &measurement{value: ((d1.value * d1.unit.baseConversionFactor) + d1.unit.baseAdditionFactor)}
-	d2 = &measurement{value: ((d2.value * d2.unit.baseConversionFactor) + d2.unit.baseAdditionFactor)}
-	return d1.value == d2.value
+	w1 = &Weight{measurement{value: ((w1.value * w1.unit.baseConversionFactor) + w1.unit.baseAdditionFactor)}}
+	w2 = &Weight{measurement{value: ((w2.value * w2.unit.baseConversionFactor) + w2.unit.baseAdditionFactor)}}
+	return w1.value == w2.value
 }
 
 func (t *Temperature) inBase() *Temperature {
